@@ -1,0 +1,524 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ShopNova — Premium Essentials</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="description" content="Discover premium essentials with fast delivery, curated collections, and a high-gloss shopping experience." />
+</head>
+<body class="min-h-screen bg-slate-50 text-slate-700 antialiased">
+  <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-xl focus:bg-white focus:px-4 focus:py-2 focus:text-slate-900 focus:ring-4 focus:ring-indigo-500/30 focus:ring-offset-2">
+    Skip to content
+  </a>
+  <header class="sticky top-0 z-40 border-b border-black/5 bg-white/70 backdrop-blur-md">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="flex h-16 items-center justify-between">
+        <div class="flex items-center gap-3">
+          <a href="#" class="group inline-flex items-center gap-2 rounded-xl px-2 py-1 text-slate-900">
+            <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-600 via-indigo-500 to-sky-400 text-white shadow-sm">
+              <span class="font-semibold tracking-tight">S</span>
+            </span>
+            <span class="text-base font-semibold tracking-tight">ShopNova</span>
+          </a>
+      <span class="hidden h-6 w-px bg-black/5 md:block" aria-hidden="true"></span>
+
+      <div class="hidden items-center gap-2 md:flex">
+        <span class="inline-flex items-center gap-2 rounded-xl border border-black/5 bg-white px-3 py-1.5 text-sm text-slate-600 shadow-[0_2px_4px_rgba(0,0,0,0.02)]">
+          <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
+          Free shipping over $50
+        </span>
+      </div>
+    </div>
+
+    <nav class="hidden items-center gap-1 md:flex" aria-label="Primary">
+      <a href="#new" class="rounded-xl px-3 py-2 text-sm font-medium text-slate-600 transition-transform duration-200 ease-out hover:-translate-y-0.5 hover:text-slate-900">New</a>
+      <a href="#collections" class="rounded-xl px-3 py-2 text-sm font-medium text-slate-600 transition-transform duration-200 ease-out hover:-translate-y-0.5 hover:text-slate-900">Collections</a>
+      <a href="#featured" class="rounded-xl px-3 py-2 text-sm font-medium text-slate-600 transition-transform duration-200 ease-out hover:-translate-y-0.5 hover:text-slate-900">Featured</a>
+      <a href="#reviews" class="rounded-xl px-3 py-2 text-sm font-medium text-slate-600 transition-transform duration-200 ease-out hover:-translate-y-0.5 hover:text-slate-900">Reviews</a>
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <form class="hidden lg:block" role="search" aria-label="Site search">
+        <label class="sr-only" for="q">Search products</label>
+        <div class="relative">
+          <span class="pointer-events-none absolute inset-y-0 left-3 inline-flex items-center text-slate-400" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" stroke="currentColor" stroke-width="2" />
+              <path d="M16.5 16.5 21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            </svg>
+          </span>
+          <input
+            id="q"
+            name="q"
+            type="search"
+            placeholder="Search…"
+            class="w-72 rounded-xl border border-black/5 bg-white px-10 py-2 text-sm text-slate-700 placeholder:text-slate-400 shadow-[0_2px_4px_rgba(0,0,0,0.02)] outline-none transition duration-200 ease-out focus:ring-4 focus:ring-indigo-500/30 focus:ring-offset-2"
+          />
+        </div>
+      </form>
+
+      <button type="button" class="inline-flex items-center justify-center rounded-xl border border-black/5 bg-white p-2 text-slate-700 shadow-[0_2px_4px_rgba(0,0,0,0.02)] transition-transform duration-200 ease-out hover:-translate-y-0.5 focus:outline-none focus:ring-4 focus:ring-indigo-500/30 focus:ring-offset-2" aria-label="Account">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M20 21a8 8 0 1 0-16 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          <path d="M12 13a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" stroke="currentColor" stroke-width="2" />
+        </svg>
+      </button>
+
+      <button type="button" class="relative inline-flex items-center justify-center rounded-xl border border-black/5 bg-white p-2 text-slate-700 shadow-[0_2px_4px_rgba(0,0,0,0.02)] transition-transform duration-200 ease-out hover:-translate-y-0.5 focus:outline-none focus:ring-4 focus:ring-indigo-500/30 focus:ring-offset-2" aria-label="Cart">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M6 7h15l-2 10H8L6 7Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+          <path d="M6 7 5 3H2" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          <path d="M9 21a1 1 0 1 0 0-2 1 1 0 0 0 0 2ZM18 21a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" stroke="currentColor" stroke-width="2" />
+        </svg>
+        <span class="absolute -right-1 -top-1 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-gradient-to-br from-indigo-600 via-indigo-500 to-sky-400 px-1 text-xs font-semibold text-white shadow-sm">
+          2
+        </span>
+      </button>
+
+      <a href="#featured" class="hidden sm:inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-500 to-sky-400 px-4 py-2 text-sm font-semibold text-white shadow-[0_10px_20px_rgba(0,0,0,0.04)] transition-transform duration-200 ease-out hover:-translate-y-0.5 focus:outline-none focus:ring-4 focus:ring-indigo-500/30 focus:ring-offset-2 active:scale-95">
+        Shop now
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M7 17 17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          <path d="M9 7h8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>
+  </header>
+
+    <main id="main">
+    <section class="relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-b from-white via-white to-slate-50" aria-hidden="true"></div>
+      <div class="pointer-events-none absolute -top-24 left-1/2 h-[520px] w-[920px] -translate-x-1/2 rounded-[48px] bg-gradient-to-br from-indigo-600/15 via-sky-400/10 to-emerald-400/10 blur-2xl" aria-hidden="true"></div>
+  <div class="relative mx-auto max-w-7xl px-6 py-28">
+    <div class="grid items-center gap-12 lg:grid-cols-2">
+      <div>
+        <p class="inline-flex items-center gap-2 rounded-xl border border-black/5 bg-white px-3 py-1.5 text-sm text-slate-600 shadow-[0_2px_4px_rgba(0,0,0,0.02)]">
+          <span class="h-2 w-2 rounded-full bg-indigo-500"></span>
+          New season drops weekly
+        </p>
+
+        <h1 class="mt-6 text-balance text-4xl font-semibold tracking-tight text-slate-900 sm:text-5xl leading-tight">
+          Premium essentials, curated with Apple-grade polish.
+        </h1>
+
+        <p class="mt-5 max-w-[65ch] text-pretty text-base leading-relaxed text-slate-600 sm:text-lg">
+          ShopNova brings together modern essentials—designed for everyday life, delivered fast. Discover refined surfaces, thoughtful details, and collections built to last.
+        </p>
+
+        <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+          <a href="#featured" class="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-500 to-sky-400 px-6 py-3 text-sm font-semibold text-white shadow-[0_10px_20px_rgba(0,0,0,0.04)] transition-transform duration-200 ease-out hover:-translate-y-0.5 focus:outline-none focus:ring-4 focus:ring-indigo-500/30 focus:ring-offset-2 active:scale-95">
+            Explore featured
+          </a>
+          <a href="#collections" class="inline-flex items-center justify-center rounded-xl border border-black/5 bg-white px-6 py-3 text-sm font-semibold text-slate-900 shadow-[0_2px_4px_rgba(0,0,0,0.02)] transition-transform duration-200 ease-out hover:-translate-y-0.5 focus:outline-none focus:ring-4 focus:ring-indigo-500/30 focus:ring-offset-2 active:scale-95">
+            Browse collections
+          </a>
+
+          <div class="flex items-center gap-3 sm:ml-2">
+            <div class="flex -space-x-2">
+              <span class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white shadow-[0_2px_4px_rgba(0,0,0,0.02)] ring-1 ring-black/5">
+                <span class="h-7 w-7 rounded-full bg-gradient-to-br from-indigo-600 to-sky-400" aria-hidden="true"></span>
+              </span>
+              <span class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white shadow-[0_2px_4px_rgba(0,0,0,0.02)] ring-1 ring-black/5">
+                <span class="h-7 w-7 rounded-full bg-gradient-to-br from-emerald-500 to-sky-400" aria-hidden="true"></span>
+              </span>
+              <span class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white shadow-[0_2px_4px_rgba(0,0,0,0.02)] ring-1 ring-black/5">
+                <span class="h-7 w-7 rounded-full bg-gradient-to-br from-fuchsia-500 to-indigo-500" aria-hidden="true"></span>
+              </span>
+            </div>
+            <div class="text-sm leading-relaxed text-slate-600">
+              <p class="font-medium text-slate-900">4.8/5</p>
+              <p>Trusted by 18k+ shoppers</p>
+            </div>
+          </div>
+        </div>
+
+        <dl class="mt-10 grid gap-4 sm:grid-cols-3">
+          <div class="rounded-2xl border border-black/5 bg-white p-6 shadow-[0_2px_4px_rgba(0,0,0,0.02)] transition-transform duration-200 ease-out hover:-translate-y-0.5">
+            <dt class="text-sm font-semibold text-slate-900 tracking-tight">Fast delivery</dt>
+            <dd class="mt-1 text-sm leading-relaxed text-slate-600">2–3 day shipping in major cities.</dd>
+          </div>
+          <div class="rounded-2xl border border-black/5 bg-white p-6 shadow-[0_2px_4px_rgba(0,0,0,0.02)] transition-transform duration-200 ease-out hover:-translate-y-0.5">
+            <dt class="text-sm font-semibold text-slate-900 tracking-tight">Easy returns</dt>
+            <dd class="mt-1 text-sm leading-relaxed text-slate-600">30-day free returns on all items.</dd>
+          </div>
+          <div class="rounded-2xl border border-black/5 bg-white p-6 shadow-[0_2px_4px_rgba(0,0,0,0.02)] transition-transform duration-200 ease-out hover:-translate-y-0.5">
+            <dt class="text-sm font-semibold text-slate-900 tracking-tight">Secure checkout</dt>
+            <dd class="mt-1 text-sm leading-relaxed text-slate-600">Encrypted payments & trusted providers.</dd>
+          </div>
+        </dl>
+      </div>
+
+      <div class="relative">
+        <div class="rounded-2xl border border-black/5 bg-white p-8 shadow-[0_10px_20px_rgba(0,0,0,0.04)]">
+          <div class="grid gap-6 sm:grid-cols-2">
+            <article class="group rounded-2xl border border-black/5 bg-slate-50 p-6 shadow-[0_2px_4px_rgba(0,0,0,0.02)] transition-transform duration-200 ease-out hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(0,0,0,0.04)]">
+              <div class="aspect-[4/3] overflow-hidden rounded-xl ring-1 ring-black/5">
+                <div class="h-full w-full bg-gradient-to-br from-slate-200 via-slate-100 to-white" aria-hidden="true"></div>
+              </div>
+              <h2 class="mt-4 text-sm font-semibold tracking-tight text-slate-900">Everyday Carry</h2>
+              <p class="mt-1 text-sm leading-relaxed text-slate-600">Bags, organizers, and minimalist tools.</p>
+              <span class="mt-4 inline-flex items-center gap-2 rounded-xl bg-white px-3 py-1.5 text-sm font-semibold text-slate-900 ring-1 ring-black/5 transition-transform duration-200 ease-out group-hover:-translate-y-0.5">
+                Shop
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M7 17 17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  <path d="M9 7h8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                </svg>
+              </span>
+            </article>
+
+            <article class="group rounded-2xl border border-black/5 bg-slate-50 p-6 shadow-[0_2px_4px_rgba(0,0,0,0.02)] transition-transform duration-200 ease-out hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(0,0,0,0.04)]">
+              <div class="aspect-[4/3] overflow-hidden rounded-xl ring-1 ring-black/5">
+                <div class="h-full w-full bg-gradient-to-br from-indigo-200 via-sky-100 to-white" aria-hidden="true"></div>
+              </div>
+              <h2 class="mt-4 text-sm font-semibold tracking-tight text-slate-900">Home & Living</h2>
+              <p class="mt-1 text-sm leading-relaxed text-slate-600">Soft textures and elevated basics.</p>
+              <span class="mt-4 inline-flex items-center gap-2 rounded-xl bg-white px-3 py-1.5 text-sm font-semibold text-slate-900 ring-1 ring-black/5 transition-transform duration-200 ease-out group-hover:-translate-y-0.5">
+                Shop
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M7 17 17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  <path d="M9 7h8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                </svg>
+              </span>
+            </article>
+
+            <article class="group rounded-2xl border border-black/5 bg-slate-50 p-6 shadow-[0_2px_4px_rgba(0,0,0,0.02)] transition-transform duration-200 ease-out hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(0,0,0,0.04)]">
+              <div class="aspect-[4/3] overflow-hidden rounded-xl ring-1 ring-black/5">
+                <div class="h-full w-full bg-gradient-to-br from-emerald-200 via-emerald-100 to-white" aria-hidden="true"></div>
+              </div>
+              <h2 class="mt-4 text-sm font-semibold tracking-tight text-slate-900">Wellness</h2>
+              <p class="mt-1 text-sm leading-relaxed text-slate-600">Calm, clean, and purpose-built.</p>
+              <span class="mt-4 inline-flex items-center gap-2 rounded-xl bg-white px-3 py-1.5 text-sm font-semibold text-slate-900 ring-1 ring-black/5 transition-transform duration-200 ease-out group-hover:-translate-y-0.5">
+                Shop
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M7 17 17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  <path d="M9 7h8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                </svg>
+              </span>
+            </article>
+
+            <article class="group rounded-2xl border border-black/5 bg-slate-50 p-6 shadow-[0_2px_4px_rgba(0,0,0,0.02)] transition-transform duration-200 ease-out hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(0,0,0,0.04)]">
+              <div class="aspect-[4/3] overflow-hidden rounded-xl ring-1 ring-black/5">
+                <div class="h-full w-full bg-gradient-to-br from-fuchsia-200 via-pink-100 to-white" aria-hidden="true"></div>
+              </div>
+              <h2 class="mt-4 text-sm font-semibold tracking-tight text-slate-900">Tech</h2>
+              <p class="mt-1 text-sm leading-relaxed text-slate-600">Accessories with a refined edge.</p>
+              <span class="mt-4 inline-flex items-center gap-2 rounded-xl bg-white px-3 py-1.5 text-sm font-semibold text-slate-900 ring-1 ring-black/5 transition-transform duration-200 ease-out group-hover:-translate-y-0.5">
+                Shop
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M7 17 17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  <path d="M9 7h8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                </svg>
+              </span>
+            </article>
+          </div>
+        </div>
+
+        <div class="pointer-events-none absolute -bottom-8 -right-8 hidden h-40 w-40 rounded-[40px] bg-gradient-to-br from-indigo-600/20 via-sky-400/10 to-emerald-400/10 blur-xl lg:block" aria-hidden="true"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mx-auto max-w-7xl px-6 pb-20">
+    <div class="grid gap-6 rounded-2xl border border-black/5 bg-white p-8 shadow-[0_2px_4px_rgba(0,0,0,0.02)] lg:grid-cols-3">
+      <div>
+        <h2 id="new" class="text-xl font-semibold tracking-tight text-slate-900 leading-tight">New arrivals</h2>
+        <p class="mt-2 max-w-[65ch] text-sm leading-relaxed text-slate-600">Fresh drops designed for daily use—built with premium materials and clean geometry.</p>
+      </div>
+
+      <div class="lg:col-span-2">
+        <div class="grid gap-6 sm:grid-cols-3">
+          <article class="group rounded-2xl border border-black/5 bg-slate-50 p-6 shadow-[0_2px_4px_rgba(0,0,0,0.02)] transition-transform duration-200 ease-out hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(0,0,0,0.04)]">
+            <div class="aspect-video overflow-hidden rounded-xl ring-1 ring-black/5">
+              <div class="h-full w-full bg-gradient-to-br from-slate-200 via-slate-100 to-white" aria-hidden="true"></div>
+            </div>
+            <h3 class="mt-4 text-sm font-semibold tracking-tight text-slate-900">Cloud Weave Throw</h3>
+            <p class="mt-1 text-sm leading-relaxed text-slate-600">Soft texture, modern palette.</p>
+            <div class="mt-4 flex items-center justify-between">
+              <span class="text-sm font-semibold text-slate-900">$48</span>
+              <button type="button" class="rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-500 to-sky-400 px-3 py-1.5 text-xs font-semibold text-white shadow-[0_2px_4px_rgba(0,0,0,0.02)] transition-transform duration-200 ease-out hover:-translate-y-0.5 focus:outline-none focus:ring-4 focus:ring-indigo-500/30 focus:ring-offset-2 active:scale-95">
+                Add
+              </button>
+            </div>
+          </article>
+
+          <article class="group rounded-2xl border border-black/5 bg-slate-50 p-6 shadow-[0_2px_4px_rgba(0,0,0,0.02)] transition-transform duration-200 ease-out hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(0,0,0,0.04)]">
+            <div class="aspect-video overflow-hidden rounded-xl ring-1 ring-black/5">
+              <div class="h-full w-full bg-gradient-to-br from-indigo-200 via-sky-100 to-white" aria-hidden="true"></div>
+            </div>
+            <h3 class="mt-4 text-sm font-semibold tracking-tight text-slate-900">Arc Desk Lamp</h3>
+            <p class="mt-1 text-sm leading-relaxed text-slate-600">Warm light, minimal form.</p>
+            <div class="mt-4 flex items-center justify-between">
+              <span class="text-sm font-semibold text-slate-900">$72</span>
+              <button type="button" class="rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-500 to-sky-400 px-3 py-1.5 text-xs font-semibold text-white shadow-[0_2px_4px_rgba(0,0,0,0.02)] transition-transform duration-200 ease-out hover:-translate-y-0.5 focus:outline-none focus:ring-4 focus:ring-indigo-500/30 focus:ring-offset-2 active:scale-95">
+                Add
+              </button>
+            </div>
+          </article>
+
+          <article class="group rounded-2xl border border-black/5 bg-slate-50 p-6 shadow-[0_2px_4px_rgba(0,0,0,0.02)] transition-transform duration-200 ease-out hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(0,0,0,0.04)]">
+            <div class="aspect-video overflow-hidden rounded-xl ring-1 ring-black/5">
+              <div class="h-full w-full bg-gradient-to-br from-emerald-200 via-emerald-100 to-white" aria-hidden="true"></div>
+            </div>
+            <h3 class="mt-4 text-sm font-semibold tracking-tight text-slate-900">Travel Bottle Set</h3>
+            <p class="mt-1 text-sm leading-relaxed text-slate-600">Leak-proof, carry-ready.</p>
+            <div class="mt-4 flex items-center justify-between">
+              <span class="text-sm font-semibold text-slate-900">$26</span>
+              <button type="button" class="rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-500 to-sky-400 px-3 py-1.5 text-xs font-semibold text-white shadow-[0_2px_4px_rgba(0,0,0,0.02)] transition-transform duration-200 ease-out hover:-translate-y-0.5 focus:outline-none focus:ring-4 focus:ring-indigo-500/30 focus:ring-offset-2 active:scale-95">
+                Add
+              </button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="collections" class="bg-white">
+  <div class="mx-auto max-w-7xl px-6 py-20">
+    <header class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+      <div>
+        <h2 class="text-2xl font-semibold tracking-tight text-slate-900 leading-tight">Collections</h2>
+        <p class="mt-2 max-w-[65ch] text-sm leading-relaxed text-slate-600">Curated groups designed to work together—clean, cohesive, and premium.</p>
+      </div>
+      <a href="#" class="inline-flex items-center gap-2 rounded-xl border border-black/5 bg-white px-4 py-2 text-sm font-semibold text-slate-900 shadow-[0_2px_4px_rgba(0,0,0,0.02)] transition-transform duration-200 ease-out hover:-translate-y-0.5 focus:outline-none focus:ring-4 focus:ring-indigo-500/30 focus:ring-offset-2 active:scale-95">
+        View all
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M7 17 17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          <path d="M9 7h8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+      </a>
+    </header>
+
+    <div class="mt-10 grid gap-8 lg:grid-cols-3">
+      <article class="group rounded-2xl border border-black/5 bg-slate-50 p-8 shadow-[0_2px_4px_rgba(0,0,0,0.02)] transition-transform duration-200 ease-out hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(0,0,0,0.04)]">
+        <div class="flex items-start justify-between gap-6">
+          <div>
+            <h3 class="text-lg font-semibold tracking-tight text-slate-900 leading-tight">Minimal Workspace</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">Desk essentials with calm focus.</p>
+          </div>
+          <span class="inline-flex items-center rounded-xl bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 ring-1 ring-black/5">12 items</span>
+        </div>
+        <div class="mt-6 aspect-video overflow-hidden rounded-xl ring-1 ring-black/5">
+          <div class="h-full w-full bg-gradient-to-br from-indigo-200 via-sky-100 to-white" aria-hidden="true"></div>
+        </div>
+        <a href="#" class="mt-6 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-500 to-sky-400 px-4 py-2 text-sm font-semibold text-white shadow-[0_2px_4px_rgba(0,0,0,0.02)] transition-transform duration-200 ease-out hover:-translate-y-0.5 focus:outline-none focus:ring-4 focus:ring-indigo-500/30 focus:ring-offset-2 active:scale-95">
+          Shop collection
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M7 17 17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            <path d="M9 7h8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </a>
+      </article>
+
+      <article class="group rounded-2xl border border-black/5 bg-slate-50 p-8 shadow-[0_2px_4px_rgba(0,0,0,0.02)] transition-transform duration-200 ease-out hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(0,0,0,0.04)]">
+        <div class="flex items-start justify-between gap-6">
+          <div>
+            <h3 class="text-lg font-semibold tracking-tight text-slate-900 leading-tight">Weekend Reset</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">Wellness basics, built to last.</p>
+          </div>
+          <span class="inline-flex items-center rounded-xl bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 ring-1 ring-black/5">9 items</span>
+        </div>
+        <div class="mt-6 aspect-video overflow-hidden rounded-xl ring-1 ring-black/5">
+          <div class="h-full w-full bg-gradient-to-br from-emerald-200 via-emerald-100 to-white" aria-hidden="true"></div>
+        </div>
+        <a href="#" class="mt-6 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-500 to-sky-400 px-4 py-2 text-sm font-semibold text-white shadow-[0_2px_4px_rgba(0,0,0,0.02)] transition-transform duration-200 ease-out hover:-translate-y-0.5 focus:outline-none focus:ring-4 focus:ring-indigo-500/30 focus:ring-offset-2 active:scale-95">
+          Shop collection
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M7 17 17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            <path d="M9 7h8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </a>
+      </article>
+
+      <article class="group rounded-2xl border border-black/5 bg-slate-50 p-8 shadow-[0_2px_4px_rgba(0,0,0,0.02)] transition-transform duration-200 ease-out hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(0,0,0,0.04)]">
+        <div class="flex items-start justify-between gap-6">
+          <div>
+            <h3 class="text-lg font-semibold tracking-tight text-slate-900 leading-tight">Travel Ready</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">Carry-on-friendly essentials.</p>
+          </div>
+          <span class="inline-flex items-center rounded-xl bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 ring-1 ring-black/5">15 items</span>
+        </div>
+        <div class="mt-6 aspect-video overflow-hidden rounded-xl ring-1 ring-black/5">
+          <div class="h-full w-full bg-gradient-to-br from-slate-200 via-slate-100 to-white" aria-hidden="true"></div>
+        </div>
+        <a href="#" class="mt-6 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-500 to-sky-400 px-4 py-2 text-sm font-semibold text-white shadow-[0_2px_4px_rgba(0,0,0,0.02)] transition-transform duration-200 ease-out hover:-translate-y-0.5 focus:outline-none focus:ring-4 focus:ring-indigo-500/30 focus:ring-offset-2 active:scale-95">
+          Shop collection
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M7 17 17 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            <path d="M9 7h8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="featured" class="bg-slate-50">
+  <div class="mx-auto max-w-7xl px-6 py-20">
+    <header class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+      <div>
+        <h2 class="text-2xl font-semibold tracking-tight text-slate-900 leading-tight">Featured picks</h2>
+        <p class="mt-2 max-w-[65ch] text-sm leading-relaxed text-slate-600">Our current favorites—balanced between function and refined design.</p>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="inline-flex items-center rounded-xl border border-black/5 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 shadow-[0_2px_4px_rgba(0,0,0,0.02)]">Ships today</span>
+        <span class="inline-flex items-center rounded-xl border border-black/5 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 shadow-[0_2px_4px_rgba(0,0,0,0.02)]">Limited stock</span>
+      </div>
+    </header>
+
+    <div class="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+      <article class="group rounded-2xl border border-black/5 bg-white p-6 shadow-[0_2px_4px_rgba(0,0,0,0.02)] transition-transform duration-200 ease-out hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(0,0,0,0.04)]">
+        <div class="aspect-[4/3] overflow-hidden rounded-xl ring-1 ring-black/5">
+          <div class="h-full w-full bg-gradient-to-br from-slate-200 via-slate-100 to-white" aria-hidden="true"></div>
+        </div>
+        <div class="mt-4 flex items-start justify-between gap-3">
+          <div>
+            <h3 class="text-sm font-semibold tracking-tight text-slate-900">Metro Tote</h3>
+            <p class="mt-1 text-xs leading-relaxed text-slate-600">Water-resistant canvas</p>
+          </div>
+          <span class="rounded-xl bg-slate-50 px-2 py-1 text-xs font-semibold text-slate-700 ring-1 ring-black/5">New</span>
+        </div>
+        <div class="mt-4 flex items-center justify-between">
+          <span class="text-sm font-semibold text-slate-900">$64</span>
+          <button type="button" class="rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-500 to-sky-400 px-3 py-1.5 text-xs font-semibold text-white shadow-[0_2px_4px_rgba(0,0,0,0.02)] transition-transform duration-200 ease-out hover:-translate-y-0.5 focus:outline-none focus:ring-4 focus:ring-indigo-500/30 focus:ring-offset-2 active:scale-95">
+            Add
+          </button>
+        </div>
+      </article>
+
+      <article class="group rounded-2xl border border-black/5 bg-white p-6 shadow-[0_2px_4px_rgba(0,0,0,0.02)] transition-transform duration-200 ease-out hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(0,0,0,0.04)]">
+        <div class="aspect-[4/3] overflow-hidden rounded-xl ring-1 ring-black/5">
+          <div class="h-full w-full bg-gradient-to-br from-indigo-200 via-sky-100 to-white" aria-hidden="true"></div>
+        </div>
+        <div class="mt-4 flex items-start justify-between gap-3">
+          <div>
+            <h3 class="text-sm font-semibold tracking-tight text-slate-900">Aura Bottle</h3>
+            <p class="mt-1 text-xs leading-relaxed text-slate-600">Double-wall steel</p>
+          </div>
+          <span class="rounded-xl bg-slate-50 px-2 py-1 text-xs font-semibold text-slate-700 ring-1 ring-black/5">-15%</span>
+        </div>
+        <div class="mt-4 flex items-center justify-between">
+          <span class="text-sm font-semibold text-slate-900">$29</span>
+          <button type="button" class="rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-500 to-sky-400 px-3 py-1.5 text-xs font-semibold text-white shadow-[0_2px_4px_rgba(0,0,0,0.02)] transition-transform duration-200 ease-out hover:-translate-y-0.5 focus:outline-none focus:ring-4 focus:ring-indigo-500/30 focus:ring-offset-2 active:scale-95">
+            Add
+          </button>
+        </div>
+      </article>
+
+      <article class="group rounded-2xl border border-black/5 bg-white p-6 shadow-[0_2px_4px_rgba(0,0,0,0.02)] transition-transform duration-200 ease-out hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(0,0,0,0.04)]">
+        <div class="aspect-[4/3] overflow-hidden rounded-xl ring-1 ring-black/5">
+          <div class="h-full w-full bg-gradient-to-br from-emerald-200 via-emerald-100 to-white" aria-hidden="true"></div>
+        </div>
+        <div class="mt-4 flex items-start justify-between gap-3">
+          <div>
+            <h3 class="text-sm font-semibold tracking-tight text-slate-900">Nimbus Towel Set</h3>
+            <p class="mt-1 text-xs leading-relaxed text-slate-600">Ultra-soft cotton</p>
+          </div>
+          <span class="rounded-xl bg-slate-50 px-2 py-1 text-xs font-semibold text-slate-700 ring-1 ring-black/5">Bestseller</span>
+        </div>
+        <div class="mt-4 flex items-center justify-between">
+          <span class="text-sm font-semibold text-slate-900">$38</span>
+          <button type="button" class="rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-500 to-sky-400 px-3 py-1.5 text-xs font-semibold text-white shadow-[0_2px_4px_rgba(0,0,0,0.02)] transition-transform duration-200 ease-out hover:-translate-y-0.5 focus:outline-none focus:ring-4 focus:ring-indigo-500/30 focus:ring-offset-2 active:scale-95">
+            Add
+          </button>
+        </div>
+      </article>
+
+      <article class="group rounded-2xl border border-black/5 bg-white p-6 shadow-[0_2px_4px_rgba(0,0,0,0.02)] transition-transform duration-200 ease-out hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(0,0,0,0.04)]">
+        <div class="aspect-[4/3] overflow-hidden rounded-xl ring-1 ring-black/5">
+          <div class="h-full w-full bg-gradient-to-br from-fuchsia-200 via-pink-100 to-white" aria-hidden="true"></div>
+        </div>
+        <div class="mt-4 flex items-start justify-between gap-3">
+          <div>
+            <h3 class="text-sm font-semibold tracking-tight text-slate-900">Pulse Cable Kit</h3>
+            <p class="mt-1 text-xs leading-relaxed text-slate-600">Magnetic organizer</p>
+          </div>
+          <span class="rounded-xl bg-slate-50 px-2 py-1 text-xs font-semibold text-slate-700 ring-1 ring-black/5">Hot</span>
+        </div>
+        <div class="mt-4 flex items-center justify-between">
+          <span class="text-sm font-semibold text-slate-900">$19</span>
+          <button type="button" class="rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-500 to-sky-400 px-3 py-1.5 text-xs font-semibold text-white shadow-[0_2px_4px_rgba(0,0,0,0.02)] transition-transform duration-200 ease-out hover:-translate-y-0.5 focus:outline-none focus:ring-4 focus:ring-indigo-500/30 focus:ring-offset-2 active:scale-95">
+            Add
+          </button>
+        </div>
+      </article>
+    </div>
+
+    <div class="mt-12 rounded-2xl border border-black/5 bg-white p-8 shadow-[0_2px_4px_rgba(0,0,0,0.02)]">
+      <div class="grid gap-8 lg:grid-cols-3 lg:items-center">
+        <div class="lg:col-span-2">
+          <h3 class="text-xl font-semibold tracking-tight text-slate-900 leading-tight">Bundle & save</h3>
+          <p class="mt-2 max-w-[65ch] text-sm leading-relaxed text-slate-600">Build a set from Featured picks and get an automatic discount at checkout.</p>
+        </div>
+        <a href="#" class="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-500 to-sky-400 px-6 py-3 text-sm font-semibold text-white shadow-[0_10px_20px_rgba(0,0,0,0.04)] transition-transform duration-200 ease-out hover:-translate-y-0.5 focus:outline-none focus:ring-4 focus:ring-indigo-500/30 focus:ring-offset-2 active:scale-95">
+          Create a bundle
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="reviews" class="bg-white">
+  <div class="mx-auto max-w-7xl px-6 py-20">
+    <header class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+      <div>
+        <h2 class="text-2xl font-semibold tracking-tight text-slate-900 leading-tight">Loved by shoppers</h2>
+        <p class="mt-2 max-w-[65ch] text-sm leading-relaxed text-slate-600">Premium feel isn’t loud—it's consistent. Here’s what people say.</p>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="inline-flex items-center rounded-xl border border-black/5 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 shadow-[0_2px_4px_rgba(0,0,0,0.02)]">4.8 average</span>
+        <span class="inline-flex items-center rounded-xl border border-black/5 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 shadow-[0_2px_4px_rgba(0,0,0,0.02)]">18k+ reviews</span>
+      </div>
+    </header>
+
+    <div class="mt-10 grid gap-8 lg:grid-cols-3">
+      <figure class="rounded-2xl border border-black/5 bg-slate-50 p-8 shadow-[0_2px_4px_rgba(0,0,0,0.02)] transition-transform duration-200 ease-out hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(0,0,0,0.04)]">
+        <blockquote class="text-sm leading-relaxed text-slate-600">
+          “Everything feels thoughtfully made. The product pages are calm, readable, and the checkout is seamless.”
+        </blockquote>
+        <figcaption class="mt-6 flex items-center justify-between">
+          <div>
+            <p class="text-sm font-semibold tracking-tight text-slate-900">Ayesha R.</p>
+            <p class="text-xs leading-relaxed text-slate-500">Verified purchase</p>
+          </div>
+          <div class="flex items-center gap-1 text-amber-500" aria-label="5 out of 5 stars">
+            <span aria-hidden="true">★★★★★</span>
+          </div>
+        </figcaption>
+      </figure>
+
+      <figure class="rounded-2xl border border-black/5 bg-slate-50 p-8 shadow-[0_2px_4px_rgba(0,0,0,0.02)] transition-transform duration-200 ease-out hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(0,0,0,0.04)]">
+        <blockquote class="text-sm leading-relaxed text-slate-600">
+          “I’ve been a customer for years. The quality is always there, and the new drops are exciting to see.”
+        </blockquote>
+        <figcaption class="mt-6 flex items-center justify-between">
+          <div>
+            <p class="text-sm font-semibold tracking-tight text-slate-900">Marcus L.</p>
+            <p class="text-xs leading-relaxed text-slate-500">Verified purchase</p>
+          </div>                
+            <div class="flex items-center gap-1 text-amber-500" aria-label="5 out of 5 stars">
+                <span aria-hidden="true">★★★★★</span>
+            </div>
+        </figcaption>
+      </figure>
+    </div>
+    </div>
+</section>
+    </main>
+    <footer class="bg-slate-50">
+      <div class="mx-auto max-w-7xl px-6 py-20">
+        <div class="flex flex-col items-center justify-between gap-6 sm:flex-row">
+          <p class="text-sm text-slate-600">© 2024 Acme Corp. All rights reserved.</p>
+          <nav class="flex gap-6">
+            <a href="#" class="text-sm text-slate-600 transition-colors duration-200 ease-out hover:text-slate-900">Privacy</a>
+            <a href="#" class="text-sm text-slate-600 transition-colors duration-200 ease-out hover:text-slate-900">Terms</a>
+            <a href="#" class="text-sm text-slate-600 transition-colors duration-200 ease-out hover:text-slate-900">Contact</a>
+          </nav>
+        </div>
+      </div>
+    </footer>
+  </body>   
+</html>

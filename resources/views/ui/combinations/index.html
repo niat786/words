@@ -1,0 +1,2053 @@
+<html lang="en">
+
+<head>
+    <style type="text/css">
+        :root {
+            --toastify-color-light: #fff;
+            --toastify-color-dark: #121212;
+            --toastify-color-info: #3498db;
+            --toastify-color-success: #07bc0c;
+            --toastify-color-warning: #f1c40f;
+            --toastify-color-error: hsl(6, 78%, 57%);
+            --toastify-color-transparent: rgba(255, 255, 255, .7);
+            --toastify-icon-color-info: var(--toastify-color-info);
+            --toastify-icon-color-success: var(--toastify-color-success);
+            --toastify-icon-color-warning: var(--toastify-color-warning);
+            --toastify-icon-color-error: var(--toastify-color-error);
+            --toastify-container-width: fit-content;
+            --toastify-toast-width: 320px;
+            --toastify-toast-offset: 16px;
+            --toastify-toast-top: max(var(--toastify-toast-offset), env(safe-area-inset-top));
+            --toastify-toast-right: max(var(--toastify-toast-offset), env(safe-area-inset-right));
+            --toastify-toast-left: max(var(--toastify-toast-offset), env(safe-area-inset-left));
+            --toastify-toast-bottom: max(var(--toastify-toast-offset), env(safe-area-inset-bottom));
+            --toastify-toast-background: #fff;
+            --toastify-toast-padding: 14px;
+            --toastify-toast-min-height: 64px;
+            --toastify-toast-max-height: 800px;
+            --toastify-toast-bd-radius: 6px;
+            --toastify-toast-shadow: 0px 4px 12px rgba(0, 0, 0, .1);
+            --toastify-font-family: sans-serif;
+            --toastify-z-index: 9999;
+            --toastify-text-color-light: #757575;
+            --toastify-text-color-dark: #fff;
+            --toastify-text-color-info: #fff;
+            --toastify-text-color-success: #fff;
+            --toastify-text-color-warning: #fff;
+            --toastify-text-color-error: #fff;
+            --toastify-spinner-color: #616161;
+            --toastify-spinner-color-empty-area: #e0e0e0;
+            --toastify-color-progress-light: linear-gradient(to right, #4cd964, #5ac8fa, #007aff, #34aadc, #5856d6, #ff2d55);
+            --toastify-color-progress-dark: #bb86fc;
+            --toastify-color-progress-info: var(--toastify-color-info);
+            --toastify-color-progress-success: var(--toastify-color-success);
+            --toastify-color-progress-warning: var(--toastify-color-warning);
+            --toastify-color-progress-error: var(--toastify-color-error);
+            --toastify-color-progress-bgo: .2
+        }
+
+        .Toastify__toast-container {
+            z-index: var(--toastify-z-index);
+            -webkit-transform: translate3d(0, 0, var(--toastify-z-index));
+            position: fixed;
+            width: var(--toastify-container-width);
+            box-sizing: border-box;
+            color: #fff;
+            display: flex;
+            flex-direction: column
+        }
+
+        .Toastify__toast-container--top-left {
+            top: var(--toastify-toast-top);
+            left: var(--toastify-toast-left)
+        }
+
+        .Toastify__toast-container--top-center {
+            top: var(--toastify-toast-top);
+            left: 50%;
+            transform: translate(-50%);
+            align-items: center
+        }
+
+        .Toastify__toast-container--top-right {
+            top: var(--toastify-toast-top);
+            right: var(--toastify-toast-right);
+            align-items: end
+        }
+
+        .Toastify__toast-container--bottom-left {
+            bottom: var(--toastify-toast-bottom);
+            left: var(--toastify-toast-left)
+        }
+
+        .Toastify__toast-container--bottom-center {
+            bottom: var(--toastify-toast-bottom);
+            left: 50%;
+            transform: translate(-50%);
+            align-items: center
+        }
+
+        .Toastify__toast-container--bottom-right {
+            bottom: var(--toastify-toast-bottom);
+            right: var(--toastify-toast-right);
+            align-items: end
+        }
+
+        .Toastify__toast {
+            --y: 0;
+            position: relative;
+            touch-action: none;
+            width: var(--toastify-toast-width);
+            min-height: var(--toastify-toast-min-height);
+            box-sizing: border-box;
+            margin-bottom: 1rem;
+            padding: var(--toastify-toast-padding);
+            border-radius: var(--toastify-toast-bd-radius);
+            box-shadow: var(--toastify-toast-shadow);
+            max-height: var(--toastify-toast-max-height);
+            font-family: var(--toastify-font-family);
+            z-index: 0;
+            display: flex;
+            flex: 1 auto;
+            align-items: center;
+            word-break: break-word
+        }
+
+        @media only screen and (max-width: 480px) {
+            .Toastify__toast-container {
+                width: 100vw;
+                left: env(safe-area-inset-left);
+                margin: 0
+            }
+
+            .Toastify__toast-container--top-left,
+            .Toastify__toast-container--top-center,
+            .Toastify__toast-container--top-right {
+                top: env(safe-area-inset-top);
+                transform: translate(0)
+            }
+
+            .Toastify__toast-container--bottom-left,
+            .Toastify__toast-container--bottom-center,
+            .Toastify__toast-container--bottom-right {
+                bottom: env(safe-area-inset-bottom);
+                transform: translate(0)
+            }
+
+            .Toastify__toast-container--rtl {
+                right: env(safe-area-inset-right);
+                left: initial
+            }
+
+            .Toastify__toast {
+                --toastify-toast-width: 100%;
+                margin-bottom: 0;
+                border-radius: 0
+            }
+        }
+
+        .Toastify__toast-container[data-stacked=true] {
+            width: var(--toastify-toast-width)
+        }
+
+        .Toastify__toast--stacked {
+            position: absolute;
+            width: 100%;
+            transform: translate3d(0, var(--y), 0) scale(var(--s));
+            transition: transform .3s
+        }
+
+        .Toastify__toast--stacked[data-collapsed] .Toastify__toast-body,
+        .Toastify__toast--stacked[data-collapsed] .Toastify__close-button {
+            transition: opacity .1s
+        }
+
+        .Toastify__toast--stacked[data-collapsed=false] {
+            overflow: visible
+        }
+
+        .Toastify__toast--stacked[data-collapsed=true]:not(:last-child)>* {
+            opacity: 0
+        }
+
+        .Toastify__toast--stacked:after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: calc(var(--g) * 1px);
+            bottom: 100%
+        }
+
+        .Toastify__toast--stacked[data-pos=top] {
+            top: 0
+        }
+
+        .Toastify__toast--stacked[data-pos=bot] {
+            bottom: 0
+        }
+
+        .Toastify__toast--stacked[data-pos=bot].Toastify__toast--stacked:before {
+            transform-origin: top
+        }
+
+        .Toastify__toast--stacked[data-pos=top].Toastify__toast--stacked:before {
+            transform-origin: bottom
+        }
+
+        .Toastify__toast--stacked:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 100%;
+            transform: scaleY(3);
+            z-index: -1
+        }
+
+        .Toastify__toast--rtl {
+            direction: rtl
+        }
+
+        .Toastify__toast--close-on-click {
+            cursor: pointer
+        }
+
+        .Toastify__toast-icon {
+            margin-inline-end: 10px;
+            width: 22px;
+            flex-shrink: 0;
+            display: flex
+        }
+
+        .Toastify--animate {
+            animation-fill-mode: both;
+            animation-duration: .5s
+        }
+
+        .Toastify--animate-icon {
+            animation-fill-mode: both;
+            animation-duration: .3s
+        }
+
+        .Toastify__toast-theme--dark {
+            background: var(--toastify-color-dark);
+            color: var(--toastify-text-color-dark)
+        }
+
+        .Toastify__toast-theme--light,
+        .Toastify__toast-theme--colored.Toastify__toast--default {
+            background: var(--toastify-color-light);
+            color: var(--toastify-text-color-light)
+        }
+
+        .Toastify__toast-theme--colored.Toastify__toast--info {
+            color: var(--toastify-text-color-info);
+            background: var(--toastify-color-info)
+        }
+
+        .Toastify__toast-theme--colored.Toastify__toast--success {
+            color: var(--toastify-text-color-success);
+            background: var(--toastify-color-success)
+        }
+
+        .Toastify__toast-theme--colored.Toastify__toast--warning {
+            color: var(--toastify-text-color-warning);
+            background: var(--toastify-color-warning)
+        }
+
+        .Toastify__toast-theme--colored.Toastify__toast--error {
+            color: var(--toastify-text-color-error);
+            background: var(--toastify-color-error)
+        }
+
+        .Toastify__progress-bar-theme--light {
+            background: var(--toastify-color-progress-light)
+        }
+
+        .Toastify__progress-bar-theme--dark {
+            background: var(--toastify-color-progress-dark)
+        }
+
+        .Toastify__progress-bar--info {
+            background: var(--toastify-color-progress-info)
+        }
+
+        .Toastify__progress-bar--success {
+            background: var(--toastify-color-progress-success)
+        }
+
+        .Toastify__progress-bar--warning {
+            background: var(--toastify-color-progress-warning)
+        }
+
+        .Toastify__progress-bar--error {
+            background: var(--toastify-color-progress-error)
+        }
+
+        .Toastify__progress-bar-theme--colored.Toastify__progress-bar--info,
+        .Toastify__progress-bar-theme--colored.Toastify__progress-bar--success,
+        .Toastify__progress-bar-theme--colored.Toastify__progress-bar--warning,
+        .Toastify__progress-bar-theme--colored.Toastify__progress-bar--error {
+            background: var(--toastify-color-transparent)
+        }
+
+        .Toastify__close-button {
+            color: #fff;
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            background: transparent;
+            outline: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            opacity: .7;
+            transition: .3s ease;
+            z-index: 1
+        }
+
+        .Toastify__toast--rtl .Toastify__close-button {
+            left: 6px;
+            right: unset
+        }
+
+        .Toastify__close-button--light {
+            color: #000;
+            opacity: .3
+        }
+
+        .Toastify__close-button>svg {
+            fill: currentColor;
+            height: 16px;
+            width: 14px
+        }
+
+        .Toastify__close-button:hover,
+        .Toastify__close-button:focus {
+            opacity: 1
+        }
+
+        @keyframes Toastify__trackProgress {
+            0% {
+                transform: scaleX(1)
+            }
+
+            to {
+                transform: scaleX(0)
+            }
+        }
+
+        .Toastify__progress-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: .7;
+            transform-origin: left
+        }
+
+        .Toastify__progress-bar--animated {
+            animation: Toastify__trackProgress linear 1 forwards
+        }
+
+        .Toastify__progress-bar--controlled {
+            transition: transform .2s
+        }
+
+        .Toastify__progress-bar--rtl {
+            right: 0;
+            left: initial;
+            transform-origin: right;
+            border-bottom-left-radius: initial
+        }
+
+        .Toastify__progress-bar--wrp {
+            position: absolute;
+            overflow: hidden;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            border-bottom-left-radius: var(--toastify-toast-bd-radius);
+            border-bottom-right-radius: var(--toastify-toast-bd-radius)
+        }
+
+        .Toastify__progress-bar--wrp[data-hidden=true] {
+            opacity: 0
+        }
+
+        .Toastify__progress-bar--bg {
+            opacity: var(--toastify-color-progress-bgo);
+            width: 100%;
+            height: 100%
+        }
+
+        .Toastify__spinner {
+            width: 20px;
+            height: 20px;
+            box-sizing: border-box;
+            border: 2px solid;
+            border-radius: 100%;
+            border-color: var(--toastify-spinner-color-empty-area);
+            border-right-color: var(--toastify-spinner-color);
+            animation: Toastify__spin .65s linear infinite
+        }
+
+        @keyframes Toastify__bounceInRight {
+
+            0%,
+            60%,
+            75%,
+            90%,
+            to {
+                animation-timing-function: cubic-bezier(.215, .61, .355, 1)
+            }
+
+            0% {
+                opacity: 0;
+                transform: translate3d(3000px, 0, 0)
+            }
+
+            60% {
+                opacity: 1;
+                transform: translate3d(-25px, 0, 0)
+            }
+
+            75% {
+                transform: translate3d(10px, 0, 0)
+            }
+
+            90% {
+                transform: translate3d(-5px, 0, 0)
+            }
+
+            to {
+                transform: none
+            }
+        }
+
+        @keyframes Toastify__bounceOutRight {
+            20% {
+                opacity: 1;
+                transform: translate3d(-20px, var(--y), 0)
+            }
+
+            to {
+                opacity: 0;
+                transform: translate3d(2000px, var(--y), 0)
+            }
+        }
+
+        @keyframes Toastify__bounceInLeft {
+
+            0%,
+            60%,
+            75%,
+            90%,
+            to {
+                animation-timing-function: cubic-bezier(.215, .61, .355, 1)
+            }
+
+            0% {
+                opacity: 0;
+                transform: translate3d(-3000px, 0, 0)
+            }
+
+            60% {
+                opacity: 1;
+                transform: translate3d(25px, 0, 0)
+            }
+
+            75% {
+                transform: translate3d(-10px, 0, 0)
+            }
+
+            90% {
+                transform: translate3d(5px, 0, 0)
+            }
+
+            to {
+                transform: none
+            }
+        }
+
+        @keyframes Toastify__bounceOutLeft {
+            20% {
+                opacity: 1;
+                transform: translate3d(20px, var(--y), 0)
+            }
+
+            to {
+                opacity: 0;
+                transform: translate3d(-2000px, var(--y), 0)
+            }
+        }
+
+        @keyframes Toastify__bounceInUp {
+
+            0%,
+            60%,
+            75%,
+            90%,
+            to {
+                animation-timing-function: cubic-bezier(.215, .61, .355, 1)
+            }
+
+            0% {
+                opacity: 0;
+                transform: translate3d(0, 3000px, 0)
+            }
+
+            60% {
+                opacity: 1;
+                transform: translate3d(0, -20px, 0)
+            }
+
+            75% {
+                transform: translate3d(0, 10px, 0)
+            }
+
+            90% {
+                transform: translate3d(0, -5px, 0)
+            }
+
+            to {
+                transform: translateZ(0)
+            }
+        }
+
+        @keyframes Toastify__bounceOutUp {
+            20% {
+                transform: translate3d(0, calc(var(--y) - 10px), 0)
+            }
+
+            40%,
+            45% {
+                opacity: 1;
+                transform: translate3d(0, calc(var(--y) + 20px), 0)
+            }
+
+            to {
+                opacity: 0;
+                transform: translate3d(0, -2000px, 0)
+            }
+        }
+
+        @keyframes Toastify__bounceInDown {
+
+            0%,
+            60%,
+            75%,
+            90%,
+            to {
+                animation-timing-function: cubic-bezier(.215, .61, .355, 1)
+            }
+
+            0% {
+                opacity: 0;
+                transform: translate3d(0, -3000px, 0)
+            }
+
+            60% {
+                opacity: 1;
+                transform: translate3d(0, 25px, 0)
+            }
+
+            75% {
+                transform: translate3d(0, -10px, 0)
+            }
+
+            90% {
+                transform: translate3d(0, 5px, 0)
+            }
+
+            to {
+                transform: none
+            }
+        }
+
+        @keyframes Toastify__bounceOutDown {
+            20% {
+                transform: translate3d(0, calc(var(--y) - 10px), 0)
+            }
+
+            40%,
+            45% {
+                opacity: 1;
+                transform: translate3d(0, calc(var(--y) + 20px), 0)
+            }
+
+            to {
+                opacity: 0;
+                transform: translate3d(0, 2000px, 0)
+            }
+        }
+
+        .Toastify__bounce-enter--top-left,
+        .Toastify__bounce-enter--bottom-left {
+            animation-name: Toastify__bounceInLeft
+        }
+
+        .Toastify__bounce-enter--top-right,
+        .Toastify__bounce-enter--bottom-right {
+            animation-name: Toastify__bounceInRight
+        }
+
+        .Toastify__bounce-enter--top-center {
+            animation-name: Toastify__bounceInDown
+        }
+
+        .Toastify__bounce-enter--bottom-center {
+            animation-name: Toastify__bounceInUp
+        }
+
+        .Toastify__bounce-exit--top-left,
+        .Toastify__bounce-exit--bottom-left {
+            animation-name: Toastify__bounceOutLeft
+        }
+
+        .Toastify__bounce-exit--top-right,
+        .Toastify__bounce-exit--bottom-right {
+            animation-name: Toastify__bounceOutRight
+        }
+
+        .Toastify__bounce-exit--top-center {
+            animation-name: Toastify__bounceOutUp
+        }
+
+        .Toastify__bounce-exit--bottom-center {
+            animation-name: Toastify__bounceOutDown
+        }
+
+        @keyframes Toastify__zoomIn {
+            0% {
+                opacity: 0;
+                transform: scale3d(.3, .3, .3)
+            }
+
+            50% {
+                opacity: 1
+            }
+        }
+
+        @keyframes Toastify__zoomOut {
+            0% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: 0;
+                transform: translate3d(0, var(--y), 0) scale3d(.3, .3, .3)
+            }
+
+            to {
+                opacity: 0
+            }
+        }
+
+        .Toastify__zoom-enter {
+            animation-name: Toastify__zoomIn
+        }
+
+        .Toastify__zoom-exit {
+            animation-name: Toastify__zoomOut
+        }
+
+        @keyframes Toastify__flipIn {
+            0% {
+                transform: perspective(400px) rotateX(90deg);
+                animation-timing-function: ease-in;
+                opacity: 0
+            }
+
+            40% {
+                transform: perspective(400px) rotateX(-20deg);
+                animation-timing-function: ease-in
+            }
+
+            60% {
+                transform: perspective(400px) rotateX(10deg);
+                opacity: 1
+            }
+
+            80% {
+                transform: perspective(400px) rotateX(-5deg)
+            }
+
+            to {
+                transform: perspective(400px)
+            }
+        }
+
+        @keyframes Toastify__flipOut {
+            0% {
+                transform: translate3d(0, var(--y), 0) perspective(400px)
+            }
+
+            30% {
+                transform: translate3d(0, var(--y), 0) perspective(400px) rotateX(-20deg);
+                opacity: 1
+            }
+
+            to {
+                transform: translate3d(0, var(--y), 0) perspective(400px) rotateX(90deg);
+                opacity: 0
+            }
+        }
+
+        .Toastify__flip-enter {
+            animation-name: Toastify__flipIn
+        }
+
+        .Toastify__flip-exit {
+            animation-name: Toastify__flipOut
+        }
+
+        @keyframes Toastify__slideInRight {
+            0% {
+                transform: translate3d(110%, 0, 0);
+                visibility: visible
+            }
+
+            to {
+                transform: translate3d(0, var(--y), 0)
+            }
+        }
+
+        @keyframes Toastify__slideInLeft {
+            0% {
+                transform: translate3d(-110%, 0, 0);
+                visibility: visible
+            }
+
+            to {
+                transform: translate3d(0, var(--y), 0)
+            }
+        }
+
+        @keyframes Toastify__slideInUp {
+            0% {
+                transform: translate3d(0, 110%, 0);
+                visibility: visible
+            }
+
+            to {
+                transform: translate3d(0, var(--y), 0)
+            }
+        }
+
+        @keyframes Toastify__slideInDown {
+            0% {
+                transform: translate3d(0, -110%, 0);
+                visibility: visible
+            }
+
+            to {
+                transform: translate3d(0, var(--y), 0)
+            }
+        }
+
+        @keyframes Toastify__slideOutRight {
+            0% {
+                transform: translate3d(0, var(--y), 0)
+            }
+
+            to {
+                visibility: hidden;
+                transform: translate3d(110%, var(--y), 0)
+            }
+        }
+
+        @keyframes Toastify__slideOutLeft {
+            0% {
+                transform: translate3d(0, var(--y), 0)
+            }
+
+            to {
+                visibility: hidden;
+                transform: translate3d(-110%, var(--y), 0)
+            }
+        }
+
+        @keyframes Toastify__slideOutDown {
+            0% {
+                transform: translate3d(0, var(--y), 0)
+            }
+
+            to {
+                visibility: hidden;
+                transform: translate3d(0, 500px, 0)
+            }
+        }
+
+        @keyframes Toastify__slideOutUp {
+            0% {
+                transform: translate3d(0, var(--y), 0)
+            }
+
+            to {
+                visibility: hidden;
+                transform: translate3d(0, -500px, 0)
+            }
+        }
+
+        .Toastify__slide-enter--top-left,
+        .Toastify__slide-enter--bottom-left {
+            animation-name: Toastify__slideInLeft
+        }
+
+        .Toastify__slide-enter--top-right,
+        .Toastify__slide-enter--bottom-right {
+            animation-name: Toastify__slideInRight
+        }
+
+        .Toastify__slide-enter--top-center {
+            animation-name: Toastify__slideInDown
+        }
+
+        .Toastify__slide-enter--bottom-center {
+            animation-name: Toastify__slideInUp
+        }
+
+        .Toastify__slide-exit--top-left,
+        .Toastify__slide-exit--bottom-left {
+            animation-name: Toastify__slideOutLeft;
+            animation-timing-function: ease-in;
+            animation-duration: .3s
+        }
+
+        .Toastify__slide-exit--top-right,
+        .Toastify__slide-exit--bottom-right {
+            animation-name: Toastify__slideOutRight;
+            animation-timing-function: ease-in;
+            animation-duration: .3s
+        }
+
+        .Toastify__slide-exit--top-center {
+            animation-name: Toastify__slideOutUp;
+            animation-timing-function: ease-in;
+            animation-duration: .3s
+        }
+
+        .Toastify__slide-exit--bottom-center {
+            animation-name: Toastify__slideOutDown;
+            animation-timing-function: ease-in;
+            animation-duration: .3s
+        }
+
+        @keyframes Toastify__spin {
+            0% {
+                transform: rotate(0)
+            }
+
+            to {
+                transform: rotate(360deg)
+            }
+        }
+    </style>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="/vite.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+        rel="stylesheet">
+    <title>Combinations - Daily Word Game</title>
+    <meta name="description"
+        content="Play the Combinations Game! Create words using combinations of letters from the grid and try to get the maximum score.">
+    <meta name="keywords" content="combinations, game, word game, online game, play word game, free, daily">
+    <meta property="og:title" content="Combinations - Daily Word Game">
+    <meta property="og:description"
+        content="Play the Combinations Game! Create words using combinations of letters from the grid and try to get the maximum score.">
+    <meta property="og:locale" content="en-US">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://combinations.org/">
+    <meta property="og:site_name" content="Combinations - Daily Word Game">
+    <meta property="og:width" content="1024">
+    <meta property="og:height" content="1024">
+    <meta property="og:image" content="https://combinations.org/assets/images/id/opengraph.png">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Combinations - Daily Word Game">
+    <meta name="twitter:description"
+        content="Play the Combinations Game! Create words using combinations of letters from the grid and try to get the maximum score.">
+    <meta name="twitter:image" content="https://combinations.org/assets/images/id/opengraph.png">
+
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#f6bf2a">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- Google tag (gtag.js) -->
+    <script async=""
+        src="https://count-server.sharethis.com/v2.0/get_counts?cb=window.__sharethis__.cb&amp;url=https%3A%2F%2Fcombinations.org%2F"></script>
+    <script async="" src="https://buttons-config.sharethis.com/js/6579e4ea3bcaed00121fcd27.js"></script>
+    
+    <script type="text/javascript"
+        src="https://platform-api.sharethis.com/js/sharethis.js#property=6579e4ea3bcaed00121fcd27&amp;product=sop"
+        async="async"></script>
+
+    <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1851068468056357"
+        crossorigin="anonymous"></script>
+
+    <script src="https://the.gatekeeperconsent.com/cmp.min.js" data-cfasync="false"></script>
+    <!--<script type="module" crossorigin src="/assets/index-2e389cfe.js"></script>-->
+    <!--<link rel="stylesheet" href="/assets/index-8d4ff991.css">-->
+    <!--<script type="module" crossorigin src="/assets/index-c8e92afe.js"></script>-->
+    <script type="module" crossorigin="" src="/assets/index-8b5df4dd.js"></script>
+    <link rel="stylesheet" href="/assets/index-751a24d6.css">
+
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "HowTo",
+    "name": "How to Play Combinations",
+    "url": "https://combinations.org",
+    "inLanguage": "en",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://combinations.org/assets/images/id/opengraph.png"
+            },
+    "step": [
+        {
+            "@type": "HowToStep",
+            "position": 1,
+            "name": "Grid Analysis",
+                "text": "Examine the grid consisting of various letter combinations, each displaying the number of times it appears in today's puzzle. Take note of the combinations available for use."
+        },
+        {
+            "@type": "HowToStep",
+            "position": 2,
+            "name": "Word Formation",
+            "text": "Construct words using combinations of letters from the grid. Remember, a word must consist of two, three, or four combinations. Ensure each combination is used only once per word."
+        },     
+        {
+            "@type": "HowToStep",
+            "position": 3,
+            "name": "Word Criteria",
+            "text": "Avoid using words with hyphens, proper nouns, vulgar language, or rare words, as these are not included in the valid word list."
+        },     
+        {
+            "@type": "HowToStep",
+            "position": 4,
+            "name": "Scoring Points",
+            "text": "Earn points for each correctly guessed word. You'll receive one point for each letter in the word. For instance, a 7-letter word will grant you 7 points."
+        },     
+        {
+            "@type": "HowToStep",
+            "position": 5,
+            "name": "Winning the Game",
+            "text": "To achieve a perfect score (5 stars out of 5), aim to accumulate the maximum number of points possible in today's puzzle by forming words within the given constraints."
+        }
+    ]
+}
+</script>
+    <style>
+        .banner {
+            display: block
+        }
+
+        .banner_middle {
+            width: 728px;
+            height: 90px
+        }
+
+        .banner_under_mobile {
+            display: none
+        }
+
+        @media (max-width:600px) {
+            .banner_under {
+                display: none
+            }
+
+            .banner_under_mobile {
+                display: none
+            }
+        }
+    </style>
+
+    <style type="text/css">
+        #st-2 {
+            font-family: "Helvetica Neue", Verdana, Helvetica, Arial, sans-serif;
+            ;
+            -moz-transition: all 0.2s ease-in;
+            -ms-transition: all 0.2s ease-in;
+            -o-transition: all 0.2s ease-in;
+            -webkit-transition: all 0.2s ease-in;
+            transition: all 0.2s ease-in;
+            backface-visibility: hidden;
+            display: block;
+            position: fixed;
+            opacity: 1;
+            text-align: left;
+            top: 160px;
+            z-index: 94034;
+        }
+
+        #st-2.st-left {
+            left: 0px;
+        }
+
+        #st-2.st-hidden.st-left {
+            left: -40px;
+        }
+
+        #st-2.st-hidden {
+            width: 80px;
+        }
+
+        #st-2.st-preview {
+            display: none !important;
+            opacity: 0 !important;
+        }
+
+        #st-2>div {
+            clear: left;
+            float: left;
+        }
+
+        #st-2 .st-btn {
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            -moz-transition: all 0.2s ease-in;
+            -ms-transition: all 0.2s ease-in;
+            -o-transition: all 0.2s ease-in;
+            -webkit-transition: all 0.2s ease-in;
+            transition: all 0.2s ease-in;
+            border: none;
+            cursor: pointer;
+            display: inline-block;
+            font-size: 12px;
+            height: 40px;
+            line-height: 20px;
+            margin-bottom: 0;
+            opacity: 1;
+            overflow: hidden;
+            padding: 10px;
+            position: relative;
+            text-align: left;
+            top: 0;
+            vertical-align: top;
+            white-space: nowrap;
+            width: 40px;
+        }
+
+        #st-2 .st-btn.st-first {
+            border-top: none;
+            border-top-right-radius: 4px;
+        }
+
+        #st-2 .st-btn.st-last {
+            border-bottom: none;
+            border-bottom-right-radius: 4px;
+        }
+
+        #st-2 .st-btn>svg {
+            -moz-transition: all 0.2s ease-in;
+            -ms-transition: all 0.2s ease-in;
+            -o-transition: all 0.2s ease-in;
+            -webkit-transition: all 0.2s ease-in;
+            transition: all 0.2s ease-in;
+            height: 20px;
+            margin-left: 0;
+            vertical-align: top;
+            width: 20px;
+        }
+
+        #st-2 .st-btn>img {
+            -moz-transition: all 0.2s ease-in;
+            -ms-transition: all 0.2s ease-in;
+            -o-transition: all 0.2s ease-in;
+            -webkit-transition: all 0.2s ease-in;
+            transition: all 0.2s ease-in;
+            height: 20px;
+            margin-left: 0;
+            vertical-align: top;
+            width: 20px;
+        }
+
+        #st-2 .st-btn>span {
+            -moz-transition: all 0.2s ease-in;
+            -ms-transition: all 0.2s ease-in;
+            -o-transition: all 0.2s ease-in;
+            -webkit-transition: all 0.2s ease-in;
+            transition: all 0.2s ease-in;
+            color: #fff;
+            display: inline-block;
+            font-weight: 500;
+            left: -35px;
+            letter-spacing: 0.5px;
+            opacity: 0;
+            padding: 0 6px;
+            position: relative;
+            vertical-align: top;
+            filter: alpha(opacity=0);
+        }
+
+        #st-2 .st-btn.st-hide-label>span {
+            display: none !important;
+        }
+
+        #st-2 .st-total {
+            -moz-transition: all 0.2s ease-in;
+            -ms-transition: all 0.2s ease-in;
+            -o-transition: all 0.2s ease-in;
+            -webkit-transition: all 0.2s ease-in;
+            transition: all 0.2s ease-in;
+            background: #fff;
+            color: #555;
+            display: inline-block;
+            font-weight: 500;
+            line-height: 15px;
+            margin-right: 0;
+            min-height: 34px;
+            max-width: 80px;
+            opacity: 1;
+            padding: 4px 0;
+            text-align: center;
+            width: 40px;
+        }
+
+        #st-2 .st-total.st-hidden {
+            display: none;
+        }
+
+        #st-2 .st-total>span {
+            display: block;
+            font-size: 15px;
+            line-height: 18px;
+            padding: 0;
+        }
+
+        #st-2 .st-total>span.st-shares {
+            font-size: 9px;
+            line-height: 9px;
+        }
+
+        #st-2 .st-toggle {
+            left: -40px;
+            -moz-transition: all 0.2s ease-in;
+            -ms-transition: all 0.2s ease-in;
+            -o-transition: all 0.2s ease-in;
+            -webkit-transition: all 0.2s ease-in;
+            transition: all 0.2s ease-in;
+            background: #ccc;
+            border-bottom-right-radius: 4px;
+            color: white;
+            cursor: pointer;
+            font-size: 20px;
+            line-height: 20px;
+            position: relative;
+            text-align: center;
+            width: 40px;
+        }
+
+        #st-2.st-hidden .st-toggle {
+            border-top-right-radius: 4px;
+        }
+
+        #st-2.st-left .st-toggle .st-left {
+            display: inline-block;
+        }
+
+        #st-2.st-left.st-hidden .st-toggle .st-left {
+            display: none;
+        }
+
+        #st-2.st-left .st-toggle .st-right {
+            display: none;
+        }
+
+        #st-2.st-left.st-hidden .st-toggle .st-right {
+            display: inline-block;
+        }
+
+        #st-2:hover .st-toggle {
+            left: 0;
+        }
+
+        #st-2.st-hidden:hover .st-toggle {
+            left: 40px;
+        }
+
+        #st-2.st-toggleable:hover .st-btn.st-last {
+            border-bottom-right-radius: 0;
+        }
+
+        #st-2.st-toggleable:hover .st-btn.st-last:hover {
+            border-bottom-right-radius: 4px;
+        }
+
+        #st-2 .st-btn:hover {
+            border-bottom-right-radius: 4px;
+            border-top-right-radius: 4px;
+        }
+
+        #st-2.st-has-labels .st-btn:hover {
+            width: 120px;
+        }
+
+        #st-2:not(.st-has-labels) .st-btn:hover {
+            width: 52px;
+        }
+
+        #st-2 .st-btn.st-hide-label:hover {
+            width: 52px;
+        }
+
+        #st-2 .st-btn:hover>svg {
+            margin-left: 5px;
+        }
+
+        #st-2 .st-btn:hover>img {
+            margin-left: 5px;
+        }
+
+        #st-2 .st-btn:hover>span {
+            opacity: 1;
+            display: inline-block;
+            left: 0;
+            filter: alpha(opacity=100);
+        }
+
+        @media (max-width: 1024px) {
+            #st-2 .st-btn:hover>svg {
+                margin-left: 0;
+            }
+
+            #st-2 .st-btn:hover>span {
+                display: none;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            #st-2 {
+                bottom: 0;
+                display: none;
+                left: 0;
+                right: 0;
+                top: auto;
+                width: 100%;
+            }
+
+            #st-2.st-hidden {
+                bottom: -40px;
+                width: 100%;
+            }
+
+            #st-2.st-hidden.st-left {
+                left: 0;
+            }
+
+            #st-2.st-hidden.st-right {
+                right: 0;
+            }
+
+            #st-2>div {
+                -moz-flex: 1;
+                -ms-flex: 1;
+                -webkit-flex: 1;
+                clear: none;
+                flex: 1;
+                float: none;
+            }
+
+            #st-2 .st-total {
+                background: #fff;
+                padding: 6px 8px;
+            }
+
+            #st-2 .st-btn {
+                -moz-border-radius: 0 !important;
+                -webkit-border-radius: 0 !important;
+                border-radius: 0 !important;
+                text-align: center;
+                width: auto;
+            }
+
+            #st-2 .st-btn>span {
+                display: none;
+            }
+
+            #st-2 .st-toggle {
+                display: none;
+            }
+        }
+
+        #st-2 .st-btn[data-network='facebook'] {
+            background-color: #eee
+        }
+
+        #st-2 .st-btn[data-network='facebook'] img {
+            filter: invert(100%) sepia(100%) saturate(22%) hue-rotate(45deg) brightness(107%) contrast(105%)
+        }
+
+        #st-2 .st-btn[data-network='facebook']>span {
+            color: #000
+        }
+
+        #st-2 .st-btn[data-network='twitter'] {
+            background-color: #eee
+        }
+
+        #st-2 .st-btn[data-network='twitter'] img {
+            filter: invert(100%) sepia(100%) saturate(22%) hue-rotate(45deg) brightness(107%) contrast(105%)
+        }
+
+        #st-2 .st-btn[data-network='twitter']>span {
+            color: #000
+        }
+
+        #st-2 .st-btn[data-network='email'] {
+            background-color: #eee
+        }
+
+        #st-2 .st-btn[data-network='email'] img {
+            filter: invert(100%) sepia(100%) saturate(22%) hue-rotate(45deg) brightness(107%) contrast(105%)
+        }
+
+        #st-2 .st-btn[data-network='email']>span {
+            color: #000
+        }
+
+        #st-2 .st-btn[data-network='linkedin'] {
+            background-color: #eee
+        }
+
+        #st-2 .st-btn[data-network='linkedin'] img {
+            filter: invert(100%) sepia(100%) saturate(22%) hue-rotate(45deg) brightness(107%) contrast(105%)
+        }
+
+        #st-2 .st-btn[data-network='linkedin']>span {
+            color: #000
+        }
+
+        #st-2 .st-btn[data-network='messenger'] {
+            background-color: #eee
+        }
+
+        #st-2 .st-btn[data-network='messenger'] img {
+            filter: invert(100%) sepia(100%) saturate(22%) hue-rotate(45deg) brightness(107%) contrast(105%)
+        }
+
+        #st-2 .st-btn[data-network='messenger']>span {
+            color: #000
+        }
+
+        #st-2 .st-btn[data-network='reddit'] {
+            background-color: #eee
+        }
+
+        #st-2 .st-btn[data-network='reddit'] img {
+            filter: invert(100%) sepia(100%) saturate(22%) hue-rotate(45deg) brightness(107%) contrast(105%)
+        }
+
+        #st-2 .st-btn[data-network='reddit']>span {
+            color: #000
+        }
+
+        #st-2 .st-btn[data-network='pinterest'] {
+            background-color: #eee
+        }
+
+        #st-2 .st-btn[data-network='pinterest'] img {
+            filter: invert(100%) sepia(100%) saturate(22%) hue-rotate(45deg) brightness(107%) contrast(105%)
+        }
+
+        #st-2 .st-btn[data-network='pinterest']>span {
+            color: #000
+        }
+
+        #st-2 .st-btn[data-network='snapchat']>span {
+            color: #333
+        }
+
+        ;
+        }
+
+        #st-2 .st-btn[data-network='copy']:hover {
+            width: max-content;
+        }
+    </style>
+    <style id="react-tooltip-core-styles" type="text/css">
+        :root {
+            --rt-color-white: #fff;
+            --rt-color-dark: #222;
+            --rt-color-success: #8dc572;
+            --rt-color-error: #be6464;
+            --rt-color-warning: #f0ad4e;
+            --rt-color-info: #337ab7;
+            --rt-opacity: 0.9;
+            --rt-transition-show-delay: 0.15s;
+            --rt-transition-closing-delay: 0.15s
+        }
+
+        .core-styles-module_tooltip__3vRRp {
+            position: absolute;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            opacity: 0;
+            will-change: opacity
+        }
+
+        .core-styles-module_fixed__pcSol {
+            position: fixed
+        }
+
+        .core-styles-module_arrow__cvMwQ {
+            position: absolute;
+            background: inherit
+        }
+
+        .core-styles-module_noArrow__xock6 {
+            display: none
+        }
+
+        .core-styles-module_clickable__ZuTTB {
+            pointer-events: auto
+        }
+
+        .core-styles-module_show__Nt9eE {
+            opacity: var(--rt-opacity);
+            transition: opacity var(--rt-transition-show-delay)ease-out
+        }
+
+        .core-styles-module_closing__sGnxF {
+            opacity: 0;
+            transition: opacity var(--rt-transition-closing-delay)ease-in
+        }
+    </style>
+    <style id="react-tooltip-base-styles" type="text/css">
+        .styles-module_tooltip__mnnfp {
+            padding: 8px 16px;
+            border-radius: 3px;
+            font-size: 90%;
+            width: max-content
+        }
+
+        .styles-module_arrow__K0L3T {
+            width: 8px;
+            height: 8px
+        }
+
+        [class*='react-tooltip__place-top']>.styles-module_arrow__K0L3T {
+            transform: rotate(45deg)
+        }
+
+        [class*='react-tooltip__place-right']>.styles-module_arrow__K0L3T {
+            transform: rotate(135deg)
+        }
+
+        [class*='react-tooltip__place-bottom']>.styles-module_arrow__K0L3T {
+            transform: rotate(225deg)
+        }
+
+        [class*='react-tooltip__place-left']>.styles-module_arrow__K0L3T {
+            transform: rotate(315deg)
+        }
+
+        .styles-module_dark__xNqje {
+            background: var(--rt-color-dark);
+            color: var(--rt-color-white)
+        }
+
+        .styles-module_light__Z6W-X {
+            background-color: var(--rt-color-white);
+            color: var(--rt-color-dark)
+        }
+
+        .styles-module_success__A2AKt {
+            background-color: var(--rt-color-success);
+            color: var(--rt-color-white)
+        }
+
+        .styles-module_warning__SCK0X {
+            background-color: var(--rt-color-warning);
+            color: var(--rt-color-white)
+        }
+
+        .styles-module_error__JvumD {
+            background-color: var(--rt-color-error);
+            color: var(--rt-color-white)
+        }
+
+        .styles-module_info__BWdHW {
+            background-color: var(--rt-color-info);
+            color: var(--rt-color-white)
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root">
+        <section class="Toastify" aria-live="polite" aria-atomic="false" aria-relevant="additions text"
+            aria-label="Notifications Alt+T"></section>
+        <div class="container2">
+            <div class="header1">
+                <div class="header2">
+                    <div class="header__left">
+                        <div class="logo">Combinations</div>
+                        <div class="game-id">#689</div>
+                    </div>
+                    <div class="iconbar">
+                        <div class="iconbar__item"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"
+                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M12.5 21h-6.5a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v3"></path>
+                                <path d="M16 3v4"></path>
+                                <path d="M8 3v4"></path>
+                                <path d="M4 11h12"></path>
+                                <path d="M20 14l2 2h-3"></path>
+                                <path d="M20 18l2 -2"></path>
+                                <path d="M19 16a3 3 0 1 0 2 5.236"></path>
+                            </svg></div>
+                        <div class="iconbar__item"><svg fill="currentColor" height="28" width="28" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path clip-rule="evenodd"
+                                    d="m7 2c.55228 0 1 .44772 1 1v1h8v-1c0-.55228.4477-1 1-1s1 .44772 1 1v1h1c1.6569 0 3 1.34315 3 3v7c0 .5523-.4477 1-1 1s-1-.4477-1-1v-4h-16v9c0 .5523.44772 1 1 1h5c.5523 0 1 .4477 1 1s-.4477 1-1 1h-5c-1.65685 0-3-1.3431-3-3v-12c0-1.65685 1.34315-3 3-3h1v-1c0-.55228.44772-1 1-1zm-2 4c-.55228 0-1 .44772-1 1v1h16v-1c0-.55228-.4477-1-1-1z"
+                                    fill-rule="evenodd"></path>
+                                <path
+                                    d="m16.7071 17.7071c.3905-.3905.3905-1.0237 0-1.4142s-1.0237-.3905-1.4142 0l-2 2c-.3905.3905-.3905 1.0237 0 1.4142l2 2c.3905.3905 1.0237.3905 1.4142 0s.3905-1.0237 0-1.4142l-1.2929-1.2929z">
+                                </path>
+                                <path
+                                    d="m21.7071 16.2929c.3905.3905.3905 1.0237 0 1.4142l-1.2929 1.2929 1.2929 1.2929c.3905.3905.3905 1.0237 0 1.4142s-1.0237.3905-1.4142 0l-2-2c-.3905-.3905-.3905-1.0237 0-1.4142l2-2c.3905-.3905 1.0237-.3905 1.4142 0z">
+                                </path>
+                            </svg></div>
+                        <div class="iconbar__item"><label class="dropdown"
+                                style="cursor: pointer; user-select: none; width: 100%; height: 100%;"><svg width="28"
+                                    height="28" stroke="currentColor" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M4 6l16 0"></path>
+                                    <path d="M4 12l16 0"></path>
+                                    <path d="M4 18l16 0"></path>
+                                </svg><input class="dd_input" type="checkbox">
+                                <ul class="dd_menu">
+                                    <li>Statistics</li>
+                                    <li>Settings</li>
+                                    <li>Help</li>
+                                </ul>
+                            </label></div>
+                    </div>
+                </div>
+            </div>
+            <div class="container" style="flex-direction: column;">
+                <div class="scorebar">
+                    <div class="scorebar__top">
+                        <div>Your score: 0</div>
+                        <div>Goal: 106</div>
+                    </div>
+                    <div style="display: flex; align-items: center; cursor: pointer;"><svg class="star-filled"
+                            data-tooltip-id="my-tooltip1" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            viewBox="0 0 24 24" stroke-width="2" fill="none" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path class="star-filled__inner empty"
+                                d="M8.243 7.34l-6.38 .925l-.113 .023a1 1 0 0 0 -.44 1.684l4.622 4.499l-1.09 6.355l-.013 .11a1 1 0 0 0 1.464 .944l5.706 -3l5.693 3l.1 .046a1 1 0 0 0 1.352 -1.1l-1.091 -6.355l4.624 -4.5l.078 -.085a1 1 0 0 0 -.633 -1.62l-6.38 -.926l-2.852 -5.78a1 1 0 0 0 -1.794 0l-2.853 5.78z"
+                                stroke-width="0"></path>
+                        </svg>
+                        <div class="percentbar"><span class="percentbar__percentage" style="width: 0%;"></span></div>
+                        <svg class="star-filled" data-tooltip-id="my-tooltip2" xmlns="http://www.w3.org/2000/svg"
+                            width="24" height="24" viewBox="0 0 24 24" stroke-width="2" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path class="star-filled__inner empty"
+                                d="M8.243 7.34l-6.38 .925l-.113 .023a1 1 0 0 0 -.44 1.684l4.622 4.499l-1.09 6.355l-.013 .11a1 1 0 0 0 1.464 .944l5.706 -3l5.693 3l.1 .046a1 1 0 0 0 1.352 -1.1l-1.091 -6.355l4.624 -4.5l.078 -.085a1 1 0 0 0 -.633 -1.62l-6.38 -.926l-2.852 -5.78a1 1 0 0 0 -1.794 0l-2.853 5.78z"
+                                stroke-width="0"></path>
+                        </svg>
+                        <div class="percentbar"><span class="percentbar__percentage" style="width: 0%;"></span></div>
+                        <svg class="star-filled" data-tooltip-id="my-tooltip3" xmlns="http://www.w3.org/2000/svg"
+                            width="24" height="24" viewBox="0 0 24 24" stroke-width="2" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path class="star-filled__inner empty"
+                                d="M8.243 7.34l-6.38 .925l-.113 .023a1 1 0 0 0 -.44 1.684l4.622 4.499l-1.09 6.355l-.013 .11a1 1 0 0 0 1.464 .944l5.706 -3l5.693 3l.1 .046a1 1 0 0 0 1.352 -1.1l-1.091 -6.355l4.624 -4.5l.078 -.085a1 1 0 0 0 -.633 -1.62l-6.38 -.926l-2.852 -5.78a1 1 0 0 0 -1.794 0l-2.853 5.78z"
+                                stroke-width="0"></path>
+                        </svg>
+                        <div class="percentbar"><span class="percentbar__percentage" style="width: 0%;"></span></div>
+                        <svg class="star-filled" data-tooltip-id="my-tooltip4" xmlns="http://www.w3.org/2000/svg"
+                            width="24" height="24" viewBox="0 0 24 24" stroke-width="2" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path class="star-filled__inner empty"
+                                d="M8.243 7.34l-6.38 .925l-.113 .023a1 1 0 0 0 -.44 1.684l4.622 4.499l-1.09 6.355l-.013 .11a1 1 0 0 0 1.464 .944l5.706 -3l5.693 3l.1 .046a1 1 0 0 0 1.352 -1.1l-1.091 -6.355l4.624 -4.5l.078 -.085a1 1 0 0 0 -.633 -1.62l-6.38 -.926l-2.852 -5.78a1 1 0 0 0 -1.794 0l-2.853 5.78z"
+                                stroke-width="0"></path>
+                        </svg>
+                        <div class="percentbar"><span class="percentbar__percentage" style="width: 0%;"></span></div>
+                        <svg class="star-filled" data-tooltip-id="my-tooltip5" xmlns="http://www.w3.org/2000/svg"
+                            width="24" height="24" viewBox="0 0 24 24" stroke-width="2" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path class="star-filled__inner empty"
+                                d="M8.243 7.34l-6.38 .925l-.113 .023a1 1 0 0 0 -.44 1.684l4.622 4.499l-1.09 6.355l-.013 .11a1 1 0 0 0 1.464 .944l5.706 -3l5.693 3l.1 .046a1 1 0 0 0 1.352 -1.1l-1.091 -6.355l4.624 -4.5l.078 -.085a1 1 0 0 0 -.633 -1.62l-6.38 -.926l-2.852 -5.78a1 1 0 0 0 -1.794 0l-2.853 5.78z"
+                                stroke-width="0"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div class="foundwords">
+                    <div class="foundwords__content" style="border-width: 1px;">
+                        <div class="w-full h-full">
+                            <div class="foundwords__found" style="display: block;">Your words ...</div><svg
+                                class="foundwords__badge" width="13" height="8" viewBox="0 0 15 9" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M14.8167 0.203007C14.5724 -0.0676691 14.1774 -0.0676691 13.933 0.203007L7.49998 7.32879L1.06699 0.203007C0.822632 -0.0676691 0.42763 -0.0676691 0.18327 0.203007C-0.06109 0.473683 -0.06109 0.911224 0.18327 1.1819L7.05814 8.79715C7.18001 8.93215 7.34 9 7.50001 9C7.66003 9 7.82002 8.93215 7.94189 8.79715L14.8168 1.1819C15.0611 0.911224 15.0611 0.473683 14.8167 0.203007Z"
+                                    fill="#6D7C95"></path>
+                            </svg>
+                        </div>
+                        <div class="foundwords__dropdown" style="display: none;">
+                            <div class="foundwords__title"><button class="foundwords__selector">By order</button><button
+                                    class="foundwords__selector active">By combos</button></div><svg
+                                class="foundwords__badge" width="13" height="8" viewBox="0 0 15 9" fill="none"
+                                xmlns="http://www.w3.org/2000/svg" style="transform: rotateX(180deg);">
+                                <path
+                                    d="M14.8167 0.203007C14.5724 -0.0676691 14.1774 -0.0676691 13.933 0.203007L7.49998 7.32879L1.06699 0.203007C0.822632 -0.0676691 0.42763 -0.0676691 0.18327 0.203007C-0.06109 0.473683 -0.06109 0.911224 0.18327 1.1819L7.05814 8.79715C7.18001 8.93215 7.34 9 7.50001 9C7.66003 9 7.82002 8.93215 7.94189 8.79715L14.8168 1.1819C15.0611 0.911224 15.0611 0.473683 14.8167 0.203007Z"
+                                    fill="#6D7C95"></path>
+                            </svg>
+                            <div class="foundwords__list-mobile-outer">
+                                <ul class="foundwords__list-mobile-inner">
+                                    <div class="flex flex-col w-full">
+                                        <div class="flex justify-center mt-1 mb-1">
+                                            <div class="scorebar__counter">Words found: <b>0 / 22</b></div>
+                                        </div>
+                                        <div class="foundwords__list-container">
+                                            <div class="foundwords__list-caption-container">
+                                                <div class="foundwords__list-caption">2-combos</div>
+                                            </div>
+                                            <ul class="foundwords__list">
+                                                <div class="foundwords__list-empty">(+19 words left)</div>
+                                            </ul>
+                                        </div>
+                                        <div class="foundwords__list-container">
+                                            <div class="foundwords__list-caption-container">
+                                                <div class="foundwords__list-caption">3-combos</div>
+                                            </div>
+                                            <ul class="foundwords__list">
+                                                <div class="foundwords__list-empty">(+3 words left)</div>
+                                            </ul>
+                                        </div>
+                                        <div class="foundwords__list-container">
+                                            <div class="foundwords__list-caption-container">
+                                                <div class="foundwords__list-caption">Bonus words </div>
+                                                <div class="foundwords__list-counter">(+7 words left)</div>
+                                            </div>
+                                            <ul class="foundwords__list"></ul>
+                                        </div>
+                                    </div>
+                                </ul>
+                                <div id="foundwords-mobile-ad" class="mt-[10px] w-full">
+                                    <div class="h-[100px] w-full overflow-hidden"><ins class="adsbygoogle"
+                                            data-ad-client="ca-pub-1851068468056357" data-ad-slot="7595597912"
+                                            style="display: inline-block; width: 320px; height: 100px;"></ins></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="scorebubble"></div>
+                    <div class="gameinput">
+                        <ul class="input_container"></ul>
+                        <div class="cursor"></div>
+                    </div>
+                </div>
+                <div class="gameboard">
+                    <div class="flip-card">
+                        <div class="flip-card-inner" style="transition: transform 1.5s;">
+                            <div class="flip-card-front">
+                                <div class="wordpiece">
+                                    <div class="wordpiece__uses">8</div>
+                                    <div class="wordpiece__label">do</div>
+                                </div>
+                            </div>
+                            <div class="flip-card-back">
+                                <div class="wordpiece-completed" style="z-index: 1;">
+                                    <div><svg width="32" height="32" viewBox="0 0 45.701 45.7">
+                                            <path d="M20.687,38.332c-2.072,2.072-5.434,2.072-7.505,0L1.554,26.704c-2.072-2.071-2.072-5.433,0-7.504
+        c2.071-2.072,5.433-2.072,7.505,0l6.928,6.927c0.523,0.522,1.372,0.522,1.896,0L36.642,7.368c2.071-2.072,5.433-2.072,7.505,0
+        c0.995,0.995,1.554,2.345,1.554,3.752c0,1.407-0.559,2.757-1.554,3.752L20.687,38.332z"></path>
+                                        </svg></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-card">
+                        <div class="flip-card-inner" style="transition: transform 1.5s;">
+                            <div class="flip-card-front">
+                                <div class="wordpiece">
+                                    <div class="wordpiece__uses">6</div>
+                                    <div class="wordpiece__label">re</div>
+                                </div>
+                            </div>
+                            <div class="flip-card-back">
+                                <div class="wordpiece-completed" style="z-index: 1;">
+                                    <div><svg width="32" height="32" viewBox="0 0 45.701 45.7">
+                                            <path d="M20.687,38.332c-2.072,2.072-5.434,2.072-7.505,0L1.554,26.704c-2.072-2.071-2.072-5.433,0-7.504
+        c2.071-2.072,5.433-2.072,7.505,0l6.928,6.927c0.523,0.522,1.372,0.522,1.896,0L36.642,7.368c2.071-2.072,5.433-2.072,7.505,0
+        c0.995,0.995,1.554,2.345,1.554,3.752c0,1.407-0.559,2.757-1.554,3.752L20.687,38.332z"></path>
+                                        </svg></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-card">
+                        <div class="flip-card-inner" style="transition: transform 1.5s;">
+                            <div class="flip-card-front">
+                                <div class="wordpiece">
+                                    <div class="wordpiece__uses">6</div>
+                                    <div class="wordpiece__label">ra</div>
+                                </div>
+                            </div>
+                            <div class="flip-card-back">
+                                <div class="wordpiece-completed" style="z-index: 1;">
+                                    <div><svg width="32" height="32" viewBox="0 0 45.701 45.7">
+                                            <path d="M20.687,38.332c-2.072,2.072-5.434,2.072-7.505,0L1.554,26.704c-2.072-2.071-2.072-5.433,0-7.504
+        c2.071-2.072,5.433-2.072,7.505,0l6.928,6.927c0.523,0.522,1.372,0.522,1.896,0L36.642,7.368c2.071-2.072,5.433-2.072,7.505,0
+        c0.995,0.995,1.554,2.345,1.554,3.752c0,1.407-0.559,2.757-1.554,3.752L20.687,38.332z"></path>
+                                        </svg></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-card">
+                        <div class="flip-card-inner" style="transition: transform 1.5s;">
+                            <div class="flip-card-front">
+                                <div class="wordpiece">
+                                    <div class="wordpiece__uses">5</div>
+                                    <div class="wordpiece__label">cks</div>
+                                </div>
+                            </div>
+                            <div class="flip-card-back">
+                                <div class="wordpiece-completed" style="z-index: 1;">
+                                    <div><svg width="32" height="32" viewBox="0 0 45.701 45.7">
+                                            <path d="M20.687,38.332c-2.072,2.072-5.434,2.072-7.505,0L1.554,26.704c-2.072-2.071-2.072-5.433,0-7.504
+        c2.071-2.072,5.433-2.072,7.505,0l6.928,6.927c0.523,0.522,1.372,0.522,1.896,0L36.642,7.368c2.071-2.072,5.433-2.072,7.505,0
+        c0.995,0.995,1.554,2.345,1.554,3.752c0,1.407-0.559,2.757-1.554,3.752L20.687,38.332z"></path>
+                                        </svg></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-card">
+                        <div class="flip-card-inner" style="transition: transform 1.5s;">
+                            <div class="flip-card-front">
+                                <div class="wordpiece">
+                                    <div class="wordpiece__uses">5</div>
+                                    <div class="wordpiece__label">ck</div>
+                                </div>
+                            </div>
+                            <div class="flip-card-back">
+                                <div class="wordpiece-completed" style="z-index: 1;">
+                                    <div><svg width="32" height="32" viewBox="0 0 45.701 45.7">
+                                            <path d="M20.687,38.332c-2.072,2.072-5.434,2.072-7.505,0L1.554,26.704c-2.072-2.071-2.072-5.433,0-7.504
+        c2.071-2.072,5.433-2.072,7.505,0l6.928,6.927c0.523,0.522,1.372,0.522,1.896,0L36.642,7.368c2.071-2.072,5.433-2.072,7.505,0
+        c0.995,0.995,1.554,2.345,1.554,3.752c0,1.407-0.559,2.757-1.554,3.752L20.687,38.332z"></path>
+                                        </svg></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-card">
+                        <div class="flip-card-inner" style="transition: transform 1.5s;">
+                            <div class="flip-card-front">
+                                <div class="wordpiece">
+                                    <div class="wordpiece__uses">4</div>
+                                    <div class="wordpiece__label">lu</div>
+                                </div>
+                            </div>
+                            <div class="flip-card-back">
+                                <div class="wordpiece-completed" style="z-index: 1;">
+                                    <div><svg width="32" height="32" viewBox="0 0 45.701 45.7">
+                                            <path d="M20.687,38.332c-2.072,2.072-5.434,2.072-7.505,0L1.554,26.704c-2.072-2.071-2.072-5.433,0-7.504
+        c2.071-2.072,5.433-2.072,7.505,0l6.928,6.927c0.523,0.522,1.372,0.522,1.896,0L36.642,7.368c2.071-2.072,5.433-2.072,7.505,0
+        c0.995,0.995,1.554,2.345,1.554,3.752c0,1.407-0.559,2.757-1.554,3.752L20.687,38.332z"></path>
+                                        </svg></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-card">
+                        <div class="flip-card-inner" style="transition: transform 1.5s;">
+                            <div class="flip-card-front">
+                                <div class="wordpiece">
+                                    <div class="wordpiece__uses">3</div>
+                                    <div class="wordpiece__label">est</div>
+                                </div>
+                            </div>
+                            <div class="flip-card-back">
+                                <div class="wordpiece-completed" style="z-index: 1;">
+                                    <div><svg width="32" height="32" viewBox="0 0 45.701 45.7">
+                                            <path d="M20.687,38.332c-2.072,2.072-5.434,2.072-7.505,0L1.554,26.704c-2.072-2.071-2.072-5.433,0-7.504
+        c2.071-2.072,5.433-2.072,7.505,0l6.928,6.927c0.523,0.522,1.372,0.522,1.896,0L36.642,7.368c2.071-2.072,5.433-2.072,7.505,0
+        c0.995,0.995,1.554,2.345,1.554,3.752c0,1.407-0.559,2.757-1.554,3.752L20.687,38.332z"></path>
+                                        </svg></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-card">
+                        <div class="flip-card-inner" style="transition: transform 1.5s;">
+                            <div class="flip-card-front">
+                                <div class="wordpiece">
+                                    <div class="wordpiece__uses">3</div>
+                                    <div class="wordpiece__label">plu</div>
+                                </div>
+                            </div>
+                            <div class="flip-card-back">
+                                <div class="wordpiece-completed" style="z-index: 1;">
+                                    <div><svg width="32" height="32" viewBox="0 0 45.701 45.7">
+                                            <path d="M20.687,38.332c-2.072,2.072-5.434,2.072-7.505,0L1.554,26.704c-2.072-2.071-2.072-5.433,0-7.504
+        c2.071-2.072,5.433-2.072,7.505,0l6.928,6.927c0.523,0.522,1.372,0.522,1.896,0L36.642,7.368c2.071-2.072,5.433-2.072,7.505,0
+        c0.995,0.995,1.554,2.345,1.554,3.752c0,1.407-0.559,2.757-1.554,3.752L20.687,38.332z"></path>
+                                        </svg></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-card">
+                        <div class="flip-card-inner" style="transition: transform 1.5s;">
+                            <div class="flip-card-front">
+                                <div class="wordpiece">
+                                    <div class="wordpiece__uses">3</div>
+                                    <div class="wordpiece__label">nk</div>
+                                </div>
+                            </div>
+                            <div class="flip-card-back">
+                                <div class="wordpiece-completed" style="z-index: 1;">
+                                    <div><svg width="32" height="32" viewBox="0 0 45.701 45.7">
+                                            <path d="M20.687,38.332c-2.072,2.072-5.434,2.072-7.505,0L1.554,26.704c-2.072-2.071-2.072-5.433,0-7.504
+        c2.071-2.072,5.433-2.072,7.505,0l6.928,6.927c0.523,0.522,1.372,0.522,1.896,0L36.642,7.368c2.071-2.072,5.433-2.072,7.505,0
+        c0.995,0.995,1.554,2.345,1.554,3.752c0,1.407-0.559,2.757-1.554,3.752L20.687,38.332z"></path>
+                                        </svg></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-card">
+                        <div class="flip-card-inner" style="transition: transform 1.5s;">
+                            <div class="flip-card-front">
+                                <div class="wordpiece">
+                                    <div class="wordpiece__uses">2</div>
+                                    <div class="wordpiece__label">ze</div>
+                                </div>
+                            </div>
+                            <div class="flip-card-back">
+                                <div class="wordpiece-completed" style="z-index: 1;">
+                                    <div><svg width="32" height="32" viewBox="0 0 45.701 45.7">
+                                            <path d="M20.687,38.332c-2.072,2.072-5.434,2.072-7.505,0L1.554,26.704c-2.072-2.071-2.072-5.433,0-7.504
+        c2.071-2.072,5.433-2.072,7.505,0l6.928,6.927c0.523,0.522,1.372,0.522,1.896,0L36.642,7.368c2.071-2.072,5.433-2.072,7.505,0
+        c0.995,0.995,1.554,2.345,1.554,3.752c0,1.407-0.559,2.757-1.554,3.752L20.687,38.332z"></path>
+                                        </svg></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-card">
+                        <div class="flip-card-inner" style="transition: transform 1.5s;">
+                            <div class="flip-card-front">
+                                <div class="wordpiece">
+                                    <div class="wordpiece__uses">1</div>
+                                    <div class="wordpiece__label">dux</div>
+                                </div>
+                            </div>
+                            <div class="flip-card-back">
+                                <div class="wordpiece-completed" style="z-index: 1;">
+                                    <div><svg width="32" height="32" viewBox="0 0 45.701 45.7">
+                                            <path d="M20.687,38.332c-2.072,2.072-5.434,2.072-7.505,0L1.554,26.704c-2.072-2.071-2.072-5.433,0-7.504
+        c2.071-2.072,5.433-2.072,7.505,0l6.928,6.927c0.523,0.522,1.372,0.522,1.896,0L36.642,7.368c2.071-2.072,5.433-2.072,7.505,0
+        c0.995,0.995,1.554,2.345,1.554,3.752c0,1.407-0.559,2.757-1.554,3.752L20.687,38.332z"></path>
+                                        </svg></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flip-card">
+                        <div class="flip-card-inner" style="transition: transform 1.5s;">
+                            <div class="flip-card-front">
+                                <div class="wordpiece">
+                                    <div class="wordpiece__uses">1</div>
+                                    <div class="wordpiece__label">ch</div>
+                                </div>
+                            </div>
+                            <div class="flip-card-back">
+                                <div class="wordpiece-completed" style="z-index: 1;">
+                                    <div><svg width="32" height="32" viewBox="0 0 45.701 45.7">
+                                            <path d="M20.687,38.332c-2.072,2.072-5.434,2.072-7.505,0L1.554,26.704c-2.072-2.071-2.072-5.433,0-7.504
+        c2.071-2.072,5.433-2.072,7.505,0l6.928,6.927c0.523,0.522,1.372,0.522,1.896,0L36.642,7.368c2.071-2.072,5.433-2.072,7.505,0
+        c0.995,0.995,1.554,2.345,1.554,3.752c0,1.407-0.559,2.757-1.554,3.752L20.687,38.332z"></path>
+                                        </svg></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="controls">
+                    <div class="controls__buttonrow">
+                        <div class="controls__left"><button class="controls__button">
+                                <div class="hint__container">
+                                    <div class="hint__label">3</div><svg xmlns="http://www.w3.org/2000/svg" width="28"
+                                        height="28" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"
+                                        fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                        <path d="M3 12h1m8 -9v1m8 8h1m-15.4 -6.4l.7 .7m12.1 -.7l-.7 .7"></path>
+                                        <path
+                                            d="M9 16a5 5 0 1 1 6 0a3.5 3.5 0 0 0 -1 3a2 2 0 0 1 -4 0a3.5 3.5 0 0 0 -1 -3">
+                                        </path>
+                                        <path d="M9.7 17l4.6 0"></path>
+                                    </svg>
+                                </div>
+                            </button><button class="controls__button">
+                                <div class="controls__button-wrapper"><svg xmlns="http://www.w3.org/2000/svg" width="28"
+                                        height="28" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"
+                                        fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                        <path d="M6 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+                                        <path d="M18 6m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+                                        <path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+                                        <path d="M8.7 10.7l6.6 -3.4"></path>
+                                        <path d="M8.7 13.3l6.6 3.4"></path>
+                                    </svg></div>
+                            </button></div>
+                        <div class="controls__right"><button class="controls__button">
+                                <div class="controls__button-wrapper"><svg xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24" width="28" height="28" stroke="currentColor"
+                                        stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                        <path d="M18 6l-12 12"></path>
+                                        <path d="M6 6l12 12"></path>
+                                    </svg></div>
+                            </button><button class="controls__button">
+                                <div class="controls__button-wrapper"><svg xmlns="http://www.w3.org/2000/svg" width="28"
+                                        height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                        <path d="M18 4l3 3l-3 3"></path>
+                                        <path d="M18 20l3 -3l-3 -3"></path>
+                                        <path d="M3 7h3a5 5 0 0 1 5 5a5 5 0 0 0 5 5h5"></path>
+                                        <path d="M21 7h-5a4.978 4.978 0 0 0 -3 1m-4 8a4.984 4.984 0 0 1 -3 1h-3"></path>
+                                    </svg></div>
+                            </button><button class="controls__button2">
+                                <div class="controls__button-wrapper-old">Submit</div>
+                            </button></div>
+                    </div>
+                </div>
+                <div id="under-ad" class="flex justify-center items-center mt-[10px]">
+                    <div class="h-[100px] w-full overflow-hidden"><ins class="adsbygoogle"
+                            data-ad-client="ca-pub-1851068468056357" data-ad-slot="7595597912"
+                            style="display: inline-block; width: 320px; height: 100px;"></ins></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align:center">
+        <div style="text-align:center">
+
+            <div class="banner banner_under" style="margin-top: -60px;">
+                <script async=""
+                    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1851068468056357"
+                    crossorigin="anonymous"></script>
+                <!-- combinations.org - 728x90 -->
+                <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px"
+                    data-ad-client="ca-pub-1851068468056357" data-ad-slot="2067939061"
+                    data-adsbygoogle-status="done"><iframe id="aswift_0"
+                        style="height: 1px !important; max-height: 1px !important; max-width: 1px !important; width: 1px !important;"><iframe
+                            id="google_ads_frame0"></iframe></iframe></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+
+            <div class="banner banner_under_mobile" style="margin-top: 40px;">
+                <script async=""
+                    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1851068468056357"
+                    crossorigin="anonymous"></script>
+                <!-- combinations.org - 320x100 -->
+                <ins class="adsbygoogle" style="display:inline-block;width:320px;height:100px"
+                    data-ad-client="ca-pub-1851068468056357" data-ad-slot="7595597912"
+                    data-adsbygoogle-status="done"><iframe id="aswift_1"
+                        style="height: 1px !important; max-height: 1px !important; max-width: 1px !important; width: 1px !important;"><iframe
+                            id="google_ads_frame1"></iframe></iframe></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <script type="text/javascript">
+        var ezstandalone = ezstandalone || {};
+        ezstandalone.cmd = ezstandalone.cmd || [];
+        ezstandalone.cmd.push(function () {
+            ezstandalone.define(100, 101);
+            ezstandalone.enable();
+            ezstandalone.display();
+        });
+    </script>
+    <script src="//www.ezojs.com/ezoic/sa.min.js"></script>
+    <script type="application/ld+json">
+
+</html></script>
+    <div id="st-2" class=" st-sticky-share-buttons st-left st-toggleable st-has-labels st-show-total st-hidden">
+        <div class="st-total st-hidden">
+            <span class="st-label"></span>
+            <span class="st-shares">
+                Shares
+            </span>
+        </div>
+        <div class="st-btn st-first" data-network="facebook" style="display: inline-block;">
+            <img alt="facebook sharing button" src="https://platform-cdn.sharethis.com/img/facebook.svg">
+            <span class="st-label">Share</span>
+        </div>
+        <div class="st-btn" data-network="twitter" style="display: inline-block;">
+            <img alt="twitter sharing button" src="https://platform-cdn.sharethis.com/img/twitter.svg">
+            <span class="st-label">Tweet</span>
+        </div>
+        <div class="st-btn" data-network="email" style="display: inline-block;">
+            <img alt="email sharing button" src="https://platform-cdn.sharethis.com/img/email.svg">
+            <span class="st-label">Email</span>
+        </div>
+        <div class="st-btn" data-network="linkedin" style="display: inline-block;">
+            <img alt="linkedin sharing button" src="https://platform-cdn.sharethis.com/img/linkedin.svg">
+            <span class="st-label">Share</span>
+        </div>
+        <div class="st-btn" data-network="messenger" style="display: inline-block;">
+            <img alt="messenger sharing button" src="https://platform-cdn.sharethis.com/img/messenger.svg">
+            <span class="st-label">Share</span>
+        </div>
+        <div class="st-btn" data-network="reddit" style="display: none;">
+            <img alt="reddit sharing button" src="https://platform-cdn.sharethis.com/img/reddit.svg">
+            <span class="st-label">Share</span>
+        </div>
+        <div class="st-btn st-last" data-network="pinterest" style="display: none;">
+            <img alt="pinterest sharing button" src="https://platform-cdn.sharethis.com/img/pinterest.svg">
+            <span class="st-label">Pin</span>
+        </div>
+        <div class="st-toggle">
+            <div class="st-left">
+                <img alt="arrow_left sharing button" src="https://platform-cdn.sharethis.com/img/arrow_left.svg">
+            </div>
+            <div class="st-right">
+                <img alt="arrow_right sharing button" src="https://platform-cdn.sharethis.com/img/arrow_right.svg">
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

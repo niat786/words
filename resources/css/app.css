@@ -1,0 +1,174 @@
+@import 'tailwindcss';
+@import '../../vendor/livewire/flux/dist/flux.css';
+
+@source '../views';
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../vendor/livewire/flux-pro/stubs/**/*.blade.php';
+@source '../../vendor/livewire/flux/stubs/**/*.blade.php';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
+    --color-zinc-50: #fafafa;
+    --color-zinc-100: #f5f5f5;
+    --color-zinc-200: #e5e5e5;
+    --color-zinc-300: #d4d4d4;
+    --color-zinc-400: #a3a3a3;
+    --color-zinc-500: #737373;
+    --color-zinc-600: #525252;
+    --color-zinc-700: #404040;
+    --color-zinc-800: #262626;
+    --color-zinc-900: #171717;
+    --color-zinc-950: #0a0a0a;
+
+    --color-accent: var(--color-neutral-800);
+    --color-accent-content: var(--color-neutral-800);
+    --color-accent-foreground: var(--color-white);
+}
+
+@layer theme {
+    .dark {
+        --color-accent: var(--color-white);
+        --color-accent-content: var(--color-white);
+        --color-accent-foreground: var(--color-neutral-800);
+    }
+}
+
+@layer base {
+
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+        border-color: var(--color-gray-200, currentColor);
+    }
+}
+
+[data-flux-field]:not(ui-radio, ui-checkbox) {
+    @apply grid gap-2;
+}
+
+[data-flux-label] {
+    @apply  !mb-0 !leading-tight;
+}
+
+input:focus[data-flux-control],
+textarea:focus[data-flux-control],
+select:focus[data-flux-control] {
+    @apply outline-hidden ring-2 ring-accent ring-offset-2 ring-offset-accent-foreground;
+}
+
+/* \[:where(&)\]:size-4 {
+    @apply size-4;
+} */
+
+.ck-editor__editable_inline {
+    min-height: 16rem;
+    border: 0 !important;
+}
+
+.ck.ck-editor__main > .ck-editor__editable:not(.ck-focused) {
+    border: 0 !important;
+}
+
+.ck.ck-toolbar {
+    border: 0 !important;
+    border-bottom: 1px solid rgba(113, 113, 122, 0.25) !important;
+}
+
+@layer components {
+    .fi-main .fi-fo-rich-editor .fi-fo-rich-editor-toolbar {
+        @apply sticky top-20 z-30 border-b border-gray-200 bg-white/95 shadow-sm backdrop-blur dark:border-white/10 dark:bg-gray-900/95;
+    }
+
+    .fi-main .fi-fo-rich-editor .fi-fo-rich-editor-toolbar-group {
+        @apply rounded-lg bg-gray-50/80 p-1 dark:bg-white/[0.04];
+    }
+
+    .fi-main .fi-fo-rich-editor .fi-fo-rich-editor-main {
+        @apply scroll-mt-28;
+    }
+
+    .game-rich-content {
+        @apply max-w-none text-base text-slate-700 dark:text-slate-200;
+    }
+
+    .game-rich-content h1 {
+        @apply mt-8 mb-4 text-3xl font-black tracking-tight text-slate-900 dark:text-white;
+    }
+
+    .game-rich-content h2 {
+        @apply mt-7 mb-3 text-2xl font-black tracking-tight text-slate-900 dark:text-white;
+    }
+
+    .game-rich-content h3 {
+        @apply mt-6 mb-3 text-xl font-black tracking-tight text-slate-900 dark:text-white;
+    }
+
+    .game-rich-content h4 {
+        @apply mt-5 mb-2 text-lg font-bold text-slate-900 dark:text-white;
+    }
+
+    .game-rich-content p {
+        @apply my-4 text-base leading-7 text-slate-700 dark:text-slate-200;
+    }
+
+    .game-rich-content ul {
+        @apply my-4 list-disc space-y-1 pl-6 marker:text-emerald-500;
+    }
+
+    .game-rich-content ol {
+        @apply my-4 list-decimal space-y-1 pl-6 marker:font-bold marker:text-slate-500 dark:marker:text-slate-300;
+    }
+
+    .game-rich-content li {
+        @apply my-1 leading-7;
+    }
+
+    .game-rich-content a {
+        @apply font-semibold text-emerald-600 underline decoration-emerald-400/60 underline-offset-4 transition-colors hover:text-emerald-500 dark:text-emerald-400 dark:hover:text-emerald-300;
+    }
+
+    .game-rich-content strong {
+        @apply font-bold text-slate-900 dark:text-white;
+    }
+
+    .game-rich-content blockquote {
+        @apply my-6 rounded-r-2xl border-l-4 border-emerald-500/60 bg-emerald-50/70 px-5 py-4 text-slate-700 dark:border-emerald-400/60 dark:bg-emerald-500/10 dark:text-slate-200;
+    }
+
+    .game-rich-content hr {
+        @apply my-8 border-slate-200 dark:border-white/10;
+    }
+
+    .game-rich-content img {
+        @apply my-6 rounded-2xl inline-block object-cover shadow-lg dark:border-white/10;
+    }
+
+    .game-rich-content pre {
+        @apply my-6 overflow-x-auto rounded-2xl bg-slate-900 p-4 text-sm text-slate-100;
+    }
+
+    .game-rich-content code {
+        @apply rounded bg-slate-100 px-1.5 py-0.5 text-[0.9em] text-slate-800 dark:bg-white/10 dark:text-slate-100;
+    }
+
+    .game-rich-content table {
+        @apply my-6 w-full border-collapse overflow-hidden rounded-xl text-sm;
+    }
+
+    .game-rich-content thead {
+        @apply bg-slate-100 dark:bg-white/10;
+    }
+
+    .game-rich-content th {
+        @apply border border-slate-200 px-3 py-2 text-left font-bold text-slate-800 dark:border-white/10 dark:text-slate-100;
+    }
+
+    .game-rich-content td {
+        @apply border border-slate-200 px-3 py-2 text-slate-700 dark:border-white/10 dark:text-slate-200;
+    }
+}

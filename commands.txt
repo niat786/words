@@ -1,0 +1,7 @@
+If you want to run cleanup immediately:
+
+php artisan blogs:clean-assets --dry-run
+php artisan blogs:clean-assets --days=2
+
+
+rm -rf /Users/niatmurad/Herd/wordle/storage/app/private/livewire-tmp/*
