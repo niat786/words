@@ -119,6 +119,7 @@
             </button>
         </div>
     </section>
+    
 
     <aside class="flex flex-col gap-6">
         <section class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
@@ -177,7 +178,10 @@
                 </ul>
         </section>
     </aside>
+
+    
 </main>
+
 
 <div id="spellbee-ranking-modal" class="fixed inset-0 z-[70] hidden items-center justify-center bg-slate-950/65 p-4">
     <div class="w-full max-w-2xl rounded-3xl border border-slate-200 bg-white p-6 shadow-2xl dark:border-slate-700 dark:bg-slate-900">
@@ -221,7 +225,16 @@
             </div>
         </div>
     </div>
+
+      
 </div>
+
+
+<section class="mx-auto grid max-w-6xl gap-8 px-4 py-3 sm:px-6">
+ <!-- Play Other Games Section -->
+          @livewire('play-more-games')
+</section>
+
 
 <section class="mx-auto mb-10 max-w-6xl px-4 sm:px-6">
     @include('partials.game-content-section', [

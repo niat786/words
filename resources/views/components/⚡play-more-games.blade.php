@@ -60,7 +60,7 @@ new class extends Component {
         </a>
 
         <!-- Game Card 2: Spelling Bee -->
-        <a href="#"
+        <a href="{{ route('spell-bee') }}"
             data-game-track="spellbee"
             data-game-track-event="open_game"
             class="group relative overflow-hidden rounded-3xl bg-white dark:bg-white/5 border border-slate-200/60 dark:border-white/5 hover:border-amber-500/50 transition-all duration-300 hover:shadow-2xl hover:shadow-amber-500/10 hover:-translate-y-2">
