@@ -1,15 +1,24 @@
 <?php
 
 use App\Filament\Widgets\GamesSummaryWidget;
-use App\Providers\Filament\AdminPanelProvider;
 use App\Filament\Widgets\RecentGameEventsWidget;
 use App\Models\Game;
+use App\Models\User;
+use App\Providers\Filament\AdminPanelProvider;
 use Filament\Panel;
 use Filament\Widgets\AccountWidget;
 use Filament\Widgets\FilamentInfoWidget;
 
 it('redirects guests away from admin dashboard', function (): void {
     $this->get('/admin')->assertRedirect('/admin/login');
+});
+
+it('allows authenticated users to access admin dashboard', function (): void {
+    $user = User::factory()->create();
+
+    $this->actingAs($user)
+        ->get('/admin')
+        ->assertOk();
 });
 
 it('registers recent game events widget instead of filament info widget', function (): void {
