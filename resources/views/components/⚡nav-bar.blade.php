@@ -51,7 +51,7 @@ new class extends Component
 
             <div class="flex items-center gap-2 sm:gap-4">
                 <select
-                    class="hidden rounded-lg border border-slate-200 bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-700 dark:border-white/10 dark:bg-white/5 dark:text-slate-300 md:block"
+                    class="hidden rounded-lg border border-emerald-300 bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-800 shadow-sm ring-1 ring-emerald-200/60 dark:border-emerald-500/40 dark:bg-emerald-500/10 dark:text-emerald-200 dark:ring-emerald-500/30 md:block"
                     onchange="window.location.href = '{{ url('/locale') }}/' + this.value"
                 >
                     @foreach ($availableLocales as $localeCode => $localeLabel)
@@ -85,15 +85,13 @@ new class extends Component
 
         <div class="flex items-center gap-2 overflow-x-auto pb-3 pt-1 no-scrollbar lg:hidden">
             <select
-                class="rounded-full border border-slate-200 bg-slate-100/50 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wide text-slate-600 dark:border-white/5 dark:bg-white/5 dark:text-slate-400"
+                class="rounded-full border border-emerald-300 bg-emerald-50 px-3 py-1.5 text-[10px] font-bold tracking-wide text-emerald-800 shadow-sm ring-1 ring-emerald-200/60 dark:border-emerald-500/40 dark:bg-emerald-500/10 dark:text-emerald-200 dark:ring-emerald-500/30"
                 onchange="window.location.href = '{{ url('/locale') }}/' + this.value"
             >
                 @foreach ($availableLocales as $localeCode => $localeLabel)
-                    <option value="{{ $localeCode }}" @selected($currentLocale === $localeCode)>{{ $localeCode }}</option>
+                    <option value="{{ $localeCode }}" @selected($currentLocale === $localeCode)>{{ $localeLabel }}</option>
                 @endforeach
             </select>
-            <a href="{{ route('home') }}" class="whitespace-nowrap rounded-full border border-slate-200 bg-slate-100/50 px-4 py-1.5 text-[10px] font-bold uppercase tracking-wide text-slate-600 dark:border-white/5 dark:bg-white/5 dark:text-slate-400">Home</a>
-            <a href="#game-board" class="whitespace-nowrap rounded-full border border-slate-200 bg-slate-100/50 px-4 py-1.5 text-[10px] font-bold uppercase tracking-wide text-slate-600 dark:border-white/5 dark:bg-white/5 dark:text-slate-400">Play</a>
             <a href="{{ route('blog.index') }}" class="whitespace-nowrap rounded-full border border-slate-200 bg-slate-100/50 px-4 py-1.5 text-[10px] font-bold uppercase tracking-wide text-slate-600 dark:border-white/5 dark:bg-white/5 dark:text-slate-400">Blog</a>
             <a href="{{ url('/admin') }}" class="whitespace-nowrap rounded-full border border-slate-200 bg-slate-100/50 px-4 py-1.5 text-[10px] font-bold uppercase tracking-wide text-slate-600 dark:border-white/5 dark:bg-white/5 dark:text-slate-400">Admin</a>
             @guest
