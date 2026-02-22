@@ -11,6 +11,8 @@ new class extends Component
 @php
     $siteName = $globalSiteName ?? config('app.name');
     $siteTagline = filled($globalSiteTagline ?? null) ? $globalSiteTagline : 'Unlimited';
+    $availableLocales = $globalAvailableLocales ?? [];
+    $currentLocale = $globalCurrentLocale ?? app()->getLocale();
 @endphp
 
  <nav class="sticky top-0 z-50 w-full border-b border-white/20 bg-white/70 dark:bg-slate-950/80 backdrop-blur-xl transition-all duration-300">
@@ -48,6 +50,15 @@ new class extends Component
             </div>
 
             <div class="flex items-center gap-2 sm:gap-4">
+                <select
+                    class="hidden rounded-lg border border-slate-200 bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-700 dark:border-white/10 dark:bg-white/5 dark:text-slate-300 md:block"
+                    onchange="window.location.href = '{{ url('/locale') }}/' + this.value"
+                >
+                    @foreach ($availableLocales as $localeCode => $localeLabel)
+                        <option value="{{ $localeCode }}" @selected($currentLocale === $localeCode)>{{ $localeLabel }}</option>
+                    @endforeach
+                </select>
+
                 <button id="nav-theme-toggle" onclick="toggleTheme()" class="group relative flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 bg-slate-100 text-slate-600 transition-all active:scale-90 dark:border-white/10 dark:bg-white/5 dark:text-slate-400 sm:h-10 sm:w-10 sm:rounded-xl">
                     <svg xmlns="http://www.w3.org/2000/svg" class="hidden h-5 w-5 text-yellow-400 transition-transform duration-500 group-hover:rotate-90 dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M12 7a5 5 0 100 10 5 5 0 000-10z" />
@@ -73,6 +84,14 @@ new class extends Component
         </div>
 
         <div class="flex items-center gap-2 overflow-x-auto pb-3 pt-1 no-scrollbar lg:hidden">
+            <select
+                class="rounded-full border border-slate-200 bg-slate-100/50 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wide text-slate-600 dark:border-white/5 dark:bg-white/5 dark:text-slate-400"
+                onchange="window.location.href = '{{ url('/locale') }}/' + this.value"
+            >
+                @foreach ($availableLocales as $localeCode => $localeLabel)
+                    <option value="{{ $localeCode }}" @selected($currentLocale === $localeCode)>{{ $localeCode }}</option>
+                @endforeach
+            </select>
             <a href="{{ route('home') }}" class="whitespace-nowrap rounded-full border border-slate-200 bg-slate-100/50 px-4 py-1.5 text-[10px] font-bold uppercase tracking-wide text-slate-600 dark:border-white/5 dark:bg-white/5 dark:text-slate-400">Home</a>
             <a href="#game-board" class="whitespace-nowrap rounded-full border border-slate-200 bg-slate-100/50 px-4 py-1.5 text-[10px] font-bold uppercase tracking-wide text-slate-600 dark:border-white/5 dark:bg-white/5 dark:text-slate-400">Play</a>
             <a href="{{ route('blog.index') }}" class="whitespace-nowrap rounded-full border border-slate-200 bg-slate-100/50 px-4 py-1.5 text-[10px] font-bold uppercase tracking-wide text-slate-600 dark:border-white/5 dark:bg-white/5 dark:text-slate-400">Blog</a>

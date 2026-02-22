@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Support\Localization\SupportedLocales;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -20,9 +21,12 @@ class Blog extends Model
     protected $fillable = [
         'user_id',
         'title',
+        'title_translations',
         'slug',
         'content',
+        'content_translations',
         'excerpt',
+        'excerpt_translations',
         'featured_image_path',
         'featured_image_alt',
         'status',
@@ -57,7 +61,38 @@ class Blog extends Model
             'robots_index' => 'boolean',
             'robots_follow' => 'boolean',
             'seo_score' => 'integer',
+            'title_translations' => 'array',
+            'content_translations' => 'array',
+            'excerpt_translations' => 'array',
         ];
+    }
+
+    public function translated(string $field, ?string $locale = null): ?string
+    {
+        $requestedLocale = $locale ?? app()->getLocale();
+        $translations = $this->getAttribute("{$field}_translations");
+
+        if (is_array($translations)) {
+            $localizedValue = $translations[$requestedLocale] ?? null;
+
+            if (is_string($localizedValue) && trim($localizedValue) !== '') {
+                return $localizedValue;
+            }
+
+            $defaultValue = $translations[SupportedLocales::defaultLocale()] ?? null;
+
+            if (is_string($defaultValue) && trim($defaultValue) !== '') {
+                return $defaultValue;
+            }
+        }
+
+        $fallbackValue = $this->getAttribute($field);
+
+        if (is_string($fallbackValue) && trim($fallbackValue) !== '') {
+            return $fallbackValue;
+        }
+
+        return null;
     }
 
     public function user(): BelongsTo

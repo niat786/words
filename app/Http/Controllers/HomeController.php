@@ -150,8 +150,8 @@ class HomeController extends Controller
         string $fallbackDescription,
         string $canonicalUrl,
     ): array {
-        $resolvedTitle = $game?->title ?: $fallbackTitle;
-        $resolvedDescription = $game?->meta_description ?: $fallbackDescription;
+        $resolvedTitle = $game?->translated('title') ?: $fallbackTitle;
+        $resolvedDescription = $game?->translated('meta_description') ?: $fallbackDescription;
         $resolvedCanonicalUrl = $game?->canonical_url ?: $canonicalUrl;
         $resolvedRobots = implode(', ', [
             ($game?->robots_index ?? true) ? 'index' : 'noindex',
@@ -168,19 +168,18 @@ class HomeController extends Controller
             'seoCanonicalUrl' => $resolvedCanonicalUrl,
             'seoRobots' => $resolvedRobots,
             'seoOpenGraph' => [
-                'title' => $game?->og_title ?: $resolvedTitle,
-                'description' => $game?->og_description ?: $resolvedDescription,
+                'title' => $game?->translated('title') ?: ($game?->og_title ?: $resolvedTitle),
+                'description' => $game?->translated('meta_description') ?: ($game?->og_description ?: $resolvedDescription),
                 'type' => 'website',
                 'url' => $resolvedCanonicalUrl,
             ],
             'seoTwitter' => [
                 'card' => 'summary',
-                'title' => $game?->twitter_title ?: ($game?->og_title ?: $resolvedTitle),
-                'description' => $game?->twitter_description ?: ($game?->og_description ?: $resolvedDescription),
+                'title' => $game?->translated('title') ?: ($game?->twitter_title ?: ($game?->og_title ?: $resolvedTitle)),
+                'description' => $game?->translated('meta_description') ?: ($game?->twitter_description ?: ($game?->og_description ?: $resolvedDescription)),
             ],
             'seoJsonLd' => $seoJsonLd,
             'seoRawMarkup' => $seoRawMarkup,
         ];
     }
-
 }

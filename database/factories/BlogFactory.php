@@ -24,9 +24,24 @@ class BlogFactory extends Factory
         return [
             'user_id' => User::factory(),
             'title' => $title,
+            'title_translations' => [
+                'en_US' => $title,
+                'en_GB' => $title,
+                'es_ES' => $title.' ES',
+            ],
             'slug' => $slug,
             'content' => '<h2>'.fake()->sentence(4).'</h2><p>'.fake()->paragraph(8).'</p><p>'.fake()->paragraph(8).'</p>',
+            'content_translations' => [
+                'en_US' => '<h2>'.fake()->sentence(4).'</h2><p>'.fake()->paragraph(8).'</p>',
+                'en_GB' => '<h2>'.fake()->sentence(4).'</h2><p>'.fake()->paragraph(8).'</p>',
+                'es_ES' => '<h2>'.fake()->sentence(4).'</h2><p>'.fake()->paragraph(8).'</p>',
+            ],
             'excerpt' => fake()->sentence(18),
+            'excerpt_translations' => [
+                'en_US' => fake()->sentence(18),
+                'en_GB' => fake()->sentence(18),
+                'es_ES' => fake()->sentence(18),
+            ],
             'featured_image_path' => null,
             'featured_image_alt' => null,
             'status' => 'draft',

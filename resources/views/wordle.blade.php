@@ -117,6 +117,16 @@
 </head>
 
 <body class="bg-white text-slate-900 dark:bg-[#08090a] dark:text-slate-100 transition-colors duration-300">
+  @php
+      $wordLengthOptions = [4, 5, 6, 7, 8, 9, 10, 11];
+      $homeI18n = [
+          'wordLengthSelected' => __('home.word_length_selected', ['count' => ':count']),
+          'notInWordList' => __('home.not_in_word_list'),
+          'excellent' => __('home.excellent'),
+          'gameOverWord' => __('home.game_over_word', ['word' => ':word']),
+      ];
+  @endphp
+
   @livewire('nav-bar')
 
     <main class="max-w-7xl mx-auto px-3 py-3 md:py-8">
@@ -126,20 +136,17 @@
             <section class="lg:col-span-6 flex flex-col items-center">
                 <div class="w-full md:max-w-lg mb-3">
                     <div class="mx-auto w-full max-w-xs">
-                        <label for="word-length-select" class="hidden md:block text-[11px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-2">Word Length</label>
+                        <label for="word-length-select" class="hidden md:block text-[11px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-2">{{ __('home.word_length') }}</label>
                         <select
                             id="word-length-select"
                             onchange="changeWordLength(this.value)"
                             class="w-full rounded-xl border border-slate-200 bg-white px-2 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500/30 dark:border-white/10 dark:bg-white/5 dark:text-slate-200"
                         >
-                            <option value="4">4 Letter Words</option>
-                            <option value="5" selected>5 Letter Words</option>
-                            <option value="6">6 Letter Words</option>
-                            <option value="7">7 Letter Words</option>
-                            <option value="8">8 Letter Words</option>
-                            <option value="9">9 Letter Words</option>
-                            <option value="10">10 Letter Words</option>
-                            <option value="11">11 Letter Words</option>
+                            @foreach ($wordLengthOptions as $wordLengthOption)
+                                <option value="{{ $wordLengthOption }}" @selected($wordLengthOption === 5)>
+                                    {{ __('home.letter_words', ['count' => $wordLengthOption]) }}
+                                </option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -157,7 +164,7 @@
                     <div class="flex justify-center gap-1 md:gap-2">
                         <button onclick="handleInput('BACKSPACE')" class="px-5 h-12 md:h-16 bg-slate-300 dark:bg-white/20 rounded text-lg"><i class="fa-solid fa-backspace"></i></button>
                         <script> ['Z', 'X', 'C', 'V', 'B', 'N', 'M'].forEach(l => document.write(`<button onclick="handleInput('${l}')" id="key-${l}" class="flex-1 h-12 md:h-16 bg-slate-100 dark:bg-white/10 rounded font-semibold text-base sm:text-lg hover:bg-slate-200 dark:hover:bg-white/20 active:scale-90 transition-all shadow-sm">${l}</button>`)); </script>
-                        <button onclick="handleInput('ENTER')" class="px-4 h-12 md:h-16 bg-slate-300 dark:bg-white/20 rounded font-bold text-xs sm:text-sm uppercase tracking-tighter">Enter</button>
+                        <button onclick="handleInput('ENTER')" class="px-4 h-12 md:h-16 bg-slate-300 dark:bg-white/20 rounded font-bold text-xs sm:text-sm uppercase tracking-tighter">{{ __('home.enter') }}</button>
                     </div>
                 </div>
         
@@ -176,6 +183,7 @@
         const DEFAULT_WORD_LENGTH = 5;
         const REVEAL_DELAY = 220;
         const POST_REVEAL_DELAY = 450;
+        const I18N = @json($homeI18n);
 
         const FIVE_LETTER_WORDS = ["APPLE", "BEACH", "BRAIN", "BREAD", "CLOUD", "CRANE", "DREAM", "FLAME", "GRAPE", "HEART", "LIGHT", "MUSIC", "OCEAN", "PIANO", "PLANT", "POWER", "SMILE", "SNAKE", "STONE", "TIGER", "TRAIN", "WATER", "WHALE", "WORLD"];
 
@@ -444,6 +452,13 @@
             });
         }
 
+        function interpolate(template, replacements = {}) {
+            return Object.entries(replacements).reduce(
+                (translatedText, [key, value]) => translatedText.replaceAll(`:${key}`, String(value)),
+                template,
+            );
+        }
+
         function changeWordLength(wordLength) {
             const parsedLength = Number.parseInt(wordLength, 10);
 
@@ -452,7 +467,7 @@
             }
 
             initializeGame(parsedLength);
-            showMessage(`${parsedLength} Letter Words selected`);
+            showMessage(interpolate(I18N.wordLengthSelected, { count: parsedLength }));
         }
 
         function isGuessValid(guess) {
@@ -533,7 +548,7 @@
 
             if (! isGuessValid(currentGuess)) {
                 shakeTiles();
-                showMessage('Not in word list');
+                showMessage(I18N.notInWordList);
 
                 return;
             }
@@ -650,7 +665,7 @@
                         word_length: currentWordLength,
                         duration_seconds: Math.max(0, Math.round((Date.now() - gameStartedAt) / 1000)),
                     });
-                    setTimeout(() => showMessage('Excellent! You got it!'), 500);
+                    setTimeout(() => showMessage(I18N.excellent), 500);
                 } else if (currentRow === MAX_ATTEMPTS - 1) {
                     isGameOver = true;
                     gameStats.played++;
@@ -662,7 +677,7 @@
                         word_length: currentWordLength,
                         duration_seconds: Math.max(0, Math.round((Date.now() - gameStartedAt) / 1000)),
                     });
-                    setTimeout(() => showMessage(`Game Over! The word was ${targetWord}`), 500);
+                    setTimeout(() => showMessage(interpolate(I18N.gameOverWord, { word: targetWord })), 500);
                 } else {
                     currentRow++;
                     currentCol = 0;
@@ -819,12 +834,12 @@
                         <div class="pt-4 flex flex-wrap gap-4">
                             <button
                                 class="flex items-center gap-2 bg-slate-900 dark:bg-white text-white dark:text-black px-8 py-3.5 rounded-2xl font-bold hover:scale-105 transition-transform active:scale-95">
-                                Start Playing
+                                {{ __('home.start_playing') }}
                                 <i class="fa-solid fa-arrow-right text-xs"></i>
                             </button>
                             <button
                                 class="flex items-center gap-2 bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-white px-8 py-3.5 rounded-2xl font-bold hover:bg-slate-200 dark:hover:bg-white/10 transition-colors">
-                                View Tutorial
+                                {{ __('home.view_tutorial') }}
                             </button>
                         </div>
                     </div>

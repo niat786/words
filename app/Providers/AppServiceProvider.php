@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Blog;
 use App\Models\Setting;
 use App\Observers\BlogObserver;
+use App\Support\Localization\SupportedLocales;
 use Carbon\CarbonImmutable;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Date;
@@ -83,6 +84,8 @@ class AppServiceProvider extends ServiceProvider
             'globalYoutubeUrl' => null,
             'globalXUrl' => null,
             'globalPinterestUrl' => null,
+            'globalAvailableLocales' => SupportedLocales::all(),
+            'globalCurrentLocale' => app()->getLocale(),
         ];
 
         try {

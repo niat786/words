@@ -5,12 +5,23 @@
     </head>
     <body class="min-h-screen bg-zinc-100 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
         <main class="mx-auto w-full max-w-4xl px-6 py-12">
+            <div class="mb-3 flex justify-end">
+                <select
+                    id="blog-locale"
+                    class="rounded-lg border border-zinc-300 bg-white px-2 py-1 text-sm dark:border-zinc-700 dark:bg-zinc-900"
+                    onchange="window.location.href = '{{ url('/locale') }}/' + this.value"
+                >
+                    @foreach (($globalAvailableLocales ?? []) as $localeCode => $localeLabel)
+                        <option value="{{ $localeCode }}" @selected(($globalCurrentLocale ?? app()->getLocale()) === $localeCode)>{{ $localeLabel }}</option>
+                    @endforeach
+                </select>
+            </div>
             <a href="{{ route('blog.index') }}" class="inline-flex items-center text-sm font-semibold text-emerald-600 hover:text-emerald-500 dark:text-emerald-400 dark:hover:text-emerald-300">&larr; Back to blog</a>
 
             <article class="mt-6 rounded-2xl border border-zinc-200 bg-white p-8 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
                 <header>
                     <p class="text-xs uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">{{ strtoupper($blog->status) }}</p>
-                    <h1 class="mt-2 text-4xl font-black tracking-tight">{{ $blog->title }}</h1>
+                    <h1 class="mt-2 text-4xl font-black tracking-tight">{{ $translatedTitle ?? $blog->title }}</h1>
                     <p class="mt-3 text-sm text-zinc-500 dark:text-zinc-400">
                         {{ optional($blog->published_at)->format('M d, Y H:i') ?? 'Unscheduled' }}
                         @if ($blog->user)
@@ -22,13 +33,13 @@
                 @if (filled($featuredImageUrl ?? null))
                     <img
                         src="{{ $featuredImageUrl }}"
-                        alt="{{ $blog->featured_image_alt ?: $blog->title }}"
+                        alt="{{ $blog->featured_image_alt ?: ($translatedTitle ?? $blog->title) }}"
                         class="mt-8 w-full rounded-xl border border-zinc-200 object-cover dark:border-zinc-700"
                     >
                 @endif
 
                 <div class="prose prose-zinc mt-8 max-w-none dark:prose-invert">
-                    {!! $blog->content !!}
+                    {!! $translatedContent ?? $blog->content !!}
                 </div>
             </article>
         </main>

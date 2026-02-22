@@ -8,6 +8,18 @@
             <header class="mb-10">
                 <p class="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400">Insights</p>
                 <h1 class="mt-2 text-4xl font-black tracking-tight">Blog</h1>
+                <div class="mt-4 flex items-center gap-2">
+                    <label for="blog-locale" class="text-xs font-semibold uppercase tracking-[0.15em] text-zinc-500 dark:text-zinc-300">Language</label>
+                    <select
+                        id="blog-locale"
+                        class="rounded-lg border border-zinc-300 bg-white px-2 py-1 text-sm dark:border-zinc-700 dark:bg-zinc-900"
+                        onchange="window.location.href = '{{ url('/locale') }}/' + this.value"
+                    >
+                        @foreach (($globalAvailableLocales ?? []) as $localeCode => $localeLabel)
+                            <option value="{{ $localeCode }}" @selected(($globalCurrentLocale ?? app()->getLocale()) === $localeCode)>{{ $localeLabel }}</option>
+                        @endforeach
+                    </select>
+                </div>
             </header>
 
             <section class="grid gap-6 md:grid-cols-2">
@@ -16,11 +28,11 @@
                         <p class="text-xs text-zinc-500 dark:text-zinc-400">{{ optional($blog->published_at)->format('M d, Y') ?? 'Draft' }}</p>
                         <h2 class="mt-2 text-2xl font-bold leading-tight">
                             <a href="{{ route('blog.show', ['slug' => $blog->slug]) }}" class="hover:text-emerald-600 dark:hover:text-emerald-400">
-                                {{ $blog->title }}
+                                {{ $blog->translated('title') ?? $blog->title }}
                             </a>
                         </h2>
-                        @if (filled($blog->excerpt))
-                            <p class="mt-3 text-sm leading-6 text-zinc-600 dark:text-zinc-300">{{ $blog->excerpt }}</p>
+                        @if (filled($blog->translated('excerpt') ?? $blog->excerpt))
+                            <p class="mt-3 text-sm leading-6 text-zinc-600 dark:text-zinc-300">{{ $blog->translated('excerpt') ?? $blog->excerpt }}</p>
                         @endif
                         <div class="mt-4 flex items-center justify-between text-xs text-zinc-500 dark:text-zinc-400">
                             <span>SEO score: {{ $blog->seo_score ?? 'N/A' }}</span>

@@ -25,6 +25,7 @@ class EditBlog extends EditRecord
     {
         return $schema->components([
             ...BlogForm::contentSchema(),
+            ...BlogForm::translationsSchema(),
             ...BlogForm::seoSchema(),
             ...BlogForm::socialSchema(),
             ...BlogForm::publishingSchema(),

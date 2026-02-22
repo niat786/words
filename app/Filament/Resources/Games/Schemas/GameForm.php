@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Games\Schemas;
 
 use App\Models\Game;
+use App\Support\Localization\SupportedLocales;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
@@ -11,6 +12,8 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Tabs;
+use Filament\Schemas\Components\Tabs\Tab;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
 
@@ -104,6 +107,15 @@ class GameForm
                     ->columns(3)
                     ->columnSpanFull(),
 
+                Section::make('Translations')
+                    ->description('Translate game page content and metadata for every supported language.')
+                    ->visible(fn (Get $get, string $operation): bool => $operation !== 'create' || filled($get('game_key')))
+                    ->schema([
+                        Tabs::make('Game page translations')
+                            ->tabs(self::translationTabs()),
+                    ])
+                    ->columnSpanFull(),
+
                 Section::make('Schema & Social')
                     ->visible(fn (Get $get, string $operation): bool => $operation !== 'create' || filled($get('game_key')))
                     ->description('Add ad/schema markup and social metadata.')
@@ -179,5 +191,43 @@ class GameForm
             fn (string $label, string $gameKey): bool => ! in_array($gameKey, $existingGameKeys, true),
             ARRAY_FILTER_USE_BOTH,
         );
+    }
+
+    /**
+     * @return array<Tab>
+     */
+    protected static function translationTabs(): array
+    {
+        $tabs = [];
+
+        foreach (SupportedLocales::all() as $localeCode => $localeLabel) {
+            $tabs[] = Tab::make($localeLabel)
+                ->schema([
+                    TextInput::make("title_translations.{$localeCode}")
+                        ->label('Title')
+                        ->nullable()
+                        ->maxLength(255),
+                    RichEditor::make("content_translations.{$localeCode}")
+                        ->label('Content')
+                        ->nullable()
+                        ->toolbarButtons(self::writingToolbarButtons())
+                        ->fileAttachmentsDisk('public')
+                        ->fileAttachmentsDirectory('games/content')
+                        ->fileAttachmentsVisibility('public')
+                        ->fileAttachmentsAcceptedFileTypes(self::editorImageMimeTypes())
+                        ->fileAttachmentsMaxSize(20480)
+                        ->resizableImages()
+                        ->columnSpanFull(),
+                    Textarea::make("meta_description_translations.{$localeCode}")
+                        ->label('Meta Description')
+                        ->nullable()
+                        ->rows(3)
+                        ->maxLength(160)
+                        ->columnSpanFull(),
+                ])
+                ->columns(2);
+        }
+
+        return $tabs;
     }
 }

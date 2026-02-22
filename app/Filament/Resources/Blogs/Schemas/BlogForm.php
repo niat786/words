@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Blogs\Schemas;
 
 use App\Models\Blog;
+use App\Support\Localization\SupportedLocales;
 use App\Support\Seo\BlogSeoAnalyzer;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
@@ -14,6 +15,8 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Component;
 use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Tabs;
+use Filament\Schemas\Components\Tabs\Tab;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
 use Illuminate\Contracts\Support\Htmlable;
@@ -29,6 +32,7 @@ class BlogForm
         return $schema
             ->components([
                 ...self::contentSchema(),
+                ...self::translationsSchema(),
                 ...self::seoSchema(),
                 ...self::socialSchema(),
                 ...self::publishingSchema(),
@@ -132,6 +136,22 @@ class BlogForm
                         ->columnSpanFull(),
                 ])
                 ->columns(3)
+                ->columnSpanFull(),
+        ];
+    }
+
+    /**
+     * @return array<Component>
+     */
+    public static function translationsSchema(): array
+    {
+        return [
+            Section::make('Translations')
+                ->description('Provide translations for every supported language. English (US) is the default locale.')
+                ->schema([
+                    Tabs::make('Blog content translations')
+                        ->tabs(self::translationTabs()),
+                ])
                 ->columnSpanFull(),
         ];
     }
@@ -406,5 +426,43 @@ class BlogForm
             'image/webp',
             'image/avif',
         ];
+    }
+
+    /**
+     * @return array<Tab>
+     */
+    protected static function translationTabs(): array
+    {
+        $tabs = [];
+
+        foreach (SupportedLocales::all() as $localeCode => $localeLabel) {
+            $tabs[] = Tab::make($localeLabel)
+                ->schema([
+                    TextInput::make("title_translations.{$localeCode}")
+                        ->label('Title')
+                        ->nullable()
+                        ->maxLength(255),
+                    RichEditor::make("content_translations.{$localeCode}")
+                        ->label('Content')
+                        ->nullable()
+                        ->toolbarButtons(self::writingToolbarButtons())
+                        ->fileAttachmentsDisk('public')
+                        ->fileAttachmentsDirectory('blogs/content')
+                        ->fileAttachmentsVisibility('public')
+                        ->fileAttachmentsAcceptedFileTypes(self::editorImageMimeTypes())
+                        ->fileAttachmentsMaxSize(20480)
+                        ->resizableImages()
+                        ->columnSpanFull(),
+                    Textarea::make("excerpt_translations.{$localeCode}")
+                        ->label('Excerpt')
+                        ->nullable()
+                        ->rows(4)
+                        ->maxLength(500)
+                        ->columnSpanFull(),
+                ])
+                ->columns(2);
+        }
+
+        return $tabs;
     }
 }

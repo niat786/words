@@ -46,8 +46,11 @@ class BlogController extends Controller
         }
 
         $canonicalUrl = $blog->canonical_url ?: route('blog.show', ['slug' => $blog->slug]);
-        $seoTitle = $blog->title;
-        $seoDescription = $blog->excerpt ?: Str::of(strip_tags($blog->content))->squish()->limit(160)->toString();
+        $translatedTitle = $blog->translated('title') ?: $blog->title;
+        $translatedExcerpt = $blog->translated('excerpt') ?: $blog->excerpt;
+        $translatedContent = $blog->translated('content') ?: $blog->content;
+        $seoTitle = $translatedTitle;
+        $seoDescription = $translatedExcerpt ?: Str::of(strip_tags($translatedContent))->squish()->limit(160)->toString();
         $featuredImageUrl = $this->resolveFeaturedImageUrl($blog->featured_image_path);
         $robotsDirectives = implode(', ', array_filter([
             $blog->robots_index ? 'index' : 'noindex',
@@ -55,8 +58,11 @@ class BlogController extends Controller
         ]));
 
         return view('blog.show', [
-            'title' => $blog->title,
+            'title' => $translatedTitle,
             'blog' => $blog,
+            'translatedTitle' => $translatedTitle,
+            'translatedExcerpt' => $translatedExcerpt,
+            'translatedContent' => $translatedContent,
             'featuredImageUrl' => $featuredImageUrl,
             'seoTitle' => $seoTitle,
             'seoDescription' => $seoDescription,

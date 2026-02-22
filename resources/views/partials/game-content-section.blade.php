@@ -5,7 +5,13 @@
     'topSpacing' => 'mt-16',
 ])
 
-@if (filled($game?->content))
+@php
+    $translatedGameTitle = $game?->translated('title');
+    $translatedGameDescription = $game?->translated('meta_description');
+    $translatedGameContent = $game?->translated('content');
+@endphp
+
+@if (filled($translatedGameContent))
     <section class="{{ 'relative '.$topSpacing }}">
         <div class="pointer-events-none absolute -top-20 right-12 h-56 w-56 rounded-full bg-emerald-500/10 blur-3xl dark:bg-emerald-400/20"></div>
         <div class="pointer-events-none absolute -bottom-24 left-4 h-52 w-52 rounded-full bg-sky-500/10 blur-3xl dark:bg-sky-400/20"></div>
@@ -16,19 +22,19 @@
                     {{ $badge }}
                 </div>
                 <h2 class="mt-4 text-3xl font-black tracking-tight text-slate-900 dark:text-white sm:text-4xl">
-                    {{ $game->title ?? $fallbackTitle }}
+                    {{ $translatedGameTitle ?? $game?->title ?? $fallbackTitle }}
                 </h2>
 
-                @if (filled($game?->meta_description))
+                @if (filled($translatedGameDescription))
                     <p class="mt-3 max-w-3xl text-sm leading-relaxed text-slate-600 dark:text-slate-300 sm:text-base">
-                        {{ \Illuminate\Support\Str::limit(strip_tags((string) $game->meta_description), 220) }}
+                        {{ \Illuminate\Support\Str::limit(strip_tags((string) $translatedGameDescription), 220) }}
                     </p>
                 @endif
             </header>
 
             <div class="relative z-10 mt-7 border-t border-slate-200/80 dark:border-slate-700">
                 <div class="game-rich-content">
-                    {!! $game->content !!}
+                    {!! $translatedGameContent !!}
                 </div>
             </div>
         </article>

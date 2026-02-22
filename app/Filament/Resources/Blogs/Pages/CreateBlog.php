@@ -30,6 +30,8 @@ class CreateBlog extends CreateRecord
         return [
             Step::make('Content')
                 ->schema(BlogForm::contentSchema()),
+            Step::make('Translations')
+                ->schema(BlogForm::translationsSchema()),
             Step::make('SEO')
                 ->schema(BlogForm::seoSchema()),
             Step::make('Social & Schema')
