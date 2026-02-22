@@ -888,7 +888,7 @@
             <!-- Play Other Games Section -->
           @livewire('play-more-games')
 
-            <section class="mt-16 grid gap-6 md:grid-cols-2">
+            {{-- <section class="mt-16 grid gap-6 md:grid-cols-2">
                 <article class="rounded-2xl border border-slate-200/60 bg-white p-6 dark:border-white/5 dark:bg-white/5">
                     <h2 class="text-2xl font-black text-slate-900 dark:text-white">How to Play</h2>
                     <p class="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-400">
@@ -901,7 +901,7 @@
                         Wordly supports unlimited rounds, multiple languages, and adjustable difficulty settings from your dashboard.
                     </p>
                 </article>
-            </section>
+            </section> --}}
 
             @include('partials.game-content-section', [
                 'game' => $defaultGame,

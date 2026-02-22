@@ -243,11 +243,11 @@ new class extends Component {
     </div>
 
     <!-- View All Games Button -->
-    <div class="text-center mt-12">
+    {{-- <div class="text-center mt-12">
         <a href="#"
             class="inline-flex items-center gap-3 bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-8 py-4 rounded-2xl font-bold text-base hover:scale-105 transition-all shadow-xl hover:shadow-2xl active:scale-95">
             View All Games
             <i class="fa-solid fa-arrow-right"></i>
         </a>
-    </div>
+    </div> --}}
 </section>
