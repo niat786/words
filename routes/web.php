@@ -7,19 +7,36 @@ use App\Support\Localization\SupportedLocales;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/locale/{locale}', function (string $locale) {
-    abort_unless(SupportedLocales::isSupported($locale), 404);
+    $resolvedLocale = SupportedLocales::isSupported($locale)
+        ? $locale
+        : SupportedLocales::fromUrlSegment($locale);
+    abort_unless(is_string($resolvedLocale), 404);
 
-    session()->put('locale', $locale);
+    session()->put('locale', $resolvedLocale);
 
-    return redirect()->back();
+    $previousPath = parse_url(url()->previous(), PHP_URL_PATH) ?: '/';
+    $pathWithoutLocale = SupportedLocales::stripLeadingLocaleSegment($previousPath);
+    $urlPrefix = SupportedLocales::isDefault($resolvedLocale) ? '' : '/'.SupportedLocales::toUrlSegment($resolvedLocale);
+    $destination = $urlPrefix.$pathWithoutLocale;
+
+    return redirect($destination === '' ? '/' : $destination);
 })->name('locale.switch');
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/wordle', [HomeController::class, 'wordle'])->name('wordle');
 Route::get('/spell-bee', [HomeController::class, 'spellBee'])->name('spell-bee');
-
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
+
+Route::prefix('/{locale}')
+    ->whereIn('locale', SupportedLocales::nonDefaultUrlSegments())
+    ->group(function (): void {
+        Route::get('/', [HomeController::class, 'index']);
+        Route::get('/wordle', [HomeController::class, 'wordle']);
+        Route::get('/spell-bee', [HomeController::class, 'spellBee']);
+        Route::get('/blog', [BlogController::class, 'index']);
+        Route::get('/blog/{slug}', [BlogController::class, 'show']);
+    });
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])

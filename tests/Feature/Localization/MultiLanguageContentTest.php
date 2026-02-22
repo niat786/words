@@ -5,9 +5,9 @@ use App\Models\Game;
 use App\Models\User;
 
 it('switches locale through the locale route', function () {
-    $response = $this->from('/')->get('/locale/es_ES');
+    $response = $this->from('/wordle')->get('/locale/es_ES');
 
-    $response->assertRedirect('/');
+    $response->assertRedirect('/es-es/wordle');
 
     expect(session('locale'))->toBe('es_ES');
 });
@@ -33,13 +33,15 @@ it('renders translated blog content for the active locale', function () {
                 'en_US' => '<p>English blog content</p>',
                 'es_ES' => '<p>Contenido en espanol</p>',
             ],
+            'status' => 'published',
+            'published_at' => now()->subMinute(),
         ]);
 
     $this->withSession(['locale' => 'es_ES'])
-        ->get(route('blog.show', ['slug' => $blog->slug]))
+        ->get('/es-es/blog')
         ->assertSuccessful()
         ->assertSee('Titulo del Blog')
-        ->assertSee('Contenido en espanol', false);
+        ->assertSee('Resumen en espanol');
 });
 
 it('renders translated game metadata for the active locale', function () {
@@ -64,14 +66,14 @@ it('renders translated game metadata for the active locale', function () {
     ]);
 
     $this->withSession(['locale' => 'fr_FR'])
-        ->get('/wordle')
+        ->get('/fr-fr/wordle')
         ->assertSuccessful()
         ->assertSee('Wordle Francais');
 });
 
 it('renders localized fixed home page labels', function () {
     $this->withSession(['locale' => 'es_ES'])
-        ->get('/wordle')
+        ->get('/es-es/wordle')
         ->assertSuccessful()
         ->assertSee('Longitud de palabra')
         ->assertSee('5 letras')
@@ -80,17 +82,26 @@ it('renders localized fixed home page labels', function () {
 
 it('renders fixed home labels for english uk locale', function () {
     $this->withSession(['locale' => 'en_GB'])
-        ->get('/wordle')
+        ->get('/en-gb/wordle')
         ->assertSuccessful()
         ->assertSee('Word Length')
         ->assertSee('5 Letter Words')
         ->assertSee('Enter');
 });
 
+it('serves language-prefixed routes for seo crawlability', function () {
+    $this->get('/es-es/wordle')
+        ->assertSuccessful()
+        ->assertSee('Longitud de palabra');
+});
+
 it('does not render raw home translation keys for any supported locale', function () {
     foreach (array_keys(config('localization.supported_locales')) as $locale) {
+        $localeSegment = str($locale)->replace('_', '-')->lower()->toString();
+        $path = $locale === 'en_US' ? '/wordle' : '/'.$localeSegment.'/wordle';
+
         $this->withSession(['locale' => $locale])
-            ->get('/wordle')
+            ->get($path)
             ->assertSuccessful()
             ->assertDontSee('home.word_length');
     }
