@@ -119,18 +119,18 @@
 <body class="bg-white text-slate-900 dark:bg-[#08090a] dark:text-slate-100 transition-colors duration-300">
   @livewire('nav-bar')
 
-    <main class="max-w-7xl mx-auto px-3 py-8">
+    <main class="max-w-7xl mx-auto px-3 py-3 md:py-8">
         <div class="grid grid-cols-1">
              {{-- @livewire('ads-left-side') --}}
         
             <section class="lg:col-span-6 flex flex-col items-center">
-                <div class="w-full md:max-w-lg mb-6">
+                <div class="w-full md:max-w-lg mb-3">
                     <div class="mx-auto w-full max-w-xs">
-                        <label for="word-length-select" class="block text-[11px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-2">Word Length</label>
+                        <label for="word-length-select" class="hidden md:block text-[11px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-2">Word Length</label>
                         <select
                             id="word-length-select"
                             onchange="changeWordLength(this.value)"
-                            class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500/30 dark:border-white/10 dark:bg-white/5 dark:text-slate-200"
+                            class="w-full rounded-xl border border-slate-200 bg-white px-2 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500/30 dark:border-white/10 dark:bg-white/5 dark:text-slate-200"
                         >
                             <option value="4">4 Letter Words</option>
                             <option value="5" selected>5 Letter Words</option>
@@ -144,7 +144,7 @@
                     </div>
                 </div>
 
-                <div id="game-board" class="grid grid-rows-6 gap-2 mb-10">
+                <div id="game-board" class="grid grid-rows-5 gap-2 mb-3">
                 </div>
         
                 <div class="w-full md:max-w-lg space-y-2 select-none mb-12">
@@ -172,7 +172,7 @@
 
         <script>
         /** GAME LOGIC **/
-        const MAX_ATTEMPTS = 6;
+        const MAX_ATTEMPTS = 5;
         const DEFAULT_WORD_LENGTH = 5;
         const REVEAL_DELAY = 220;
         const POST_REVEAL_DELAY = 450;
