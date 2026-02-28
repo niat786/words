@@ -785,8 +785,8 @@
         });
         </script>
 
-        <div class="max-w-7xl mx-auto px-1.5 md:px-6 py-20">
-
+        <div class="max-w-7xl mx-auto px-1.5 md:px-6 py-10">
+{{-- 
             <article
                 class="relative overflow-hidden rounded-[1rem] bg-white dark:bg-[#111318] border border-slate-200/60 dark:border-white/5 p-6 md:p-16 shadow-2xl shadow-slate-200/50 dark:shadow-none mb-16">
                 <div
@@ -844,8 +844,8 @@
                         </div>
                     </div>
                 </div>
-            </article>
-
+            </article> --}}
+{{-- 
             <div class="grid md:grid-cols-2 gap-8">
                 <article
                     class="group p-8 rounded-[2rem] bg-gradient-to-b from-white to-slate-50 dark:from-white/5 dark:to-transparent border border-slate-200/60 dark:border-white/5 hover:border-green-500/30 transition-all duration-500">
@@ -898,7 +898,7 @@
                         secret word in under 6 tries?
                     </p>
                 </article>
-            </div>
+            </div> --}}
 
             <!-- Play Other Games Section -->
           @livewire('play-more-games')
