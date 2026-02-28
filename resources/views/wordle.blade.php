@@ -785,7 +785,7 @@
         });
         </script>
 
-        <div class="max-w-7xl mx-auto px-1.5 md:px-6 py-10">
+        <div class="max-w-7xl mx-auto px-1.5 md:px-6">
 {{-- 
             <article
                 class="relative overflow-hidden rounded-[1rem] bg-white dark:bg-[#111318] border border-slate-200/60 dark:border-white/5 p-6 md:p-16 shadow-2xl shadow-slate-200/50 dark:shadow-none mb-16">

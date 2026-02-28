@@ -7,7 +7,7 @@ new class extends Component {
 };
 ?>
 
-<section class="mt-24">
+<section class="mt-2">
     <div class="text-center mb-12">
         <div
             class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-500/10 text-green-600 dark:text-green-400 text-[11px] font-bold uppercase tracking-wider mb-4">
