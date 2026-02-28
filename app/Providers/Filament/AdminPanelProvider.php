@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Http\Middleware\SetFilamentLocale;
 use App\Models\Setting;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
@@ -16,9 +17,9 @@ use Filament\Support\Colors\Color;
 use Filament\Support\Icons\Heroicon;
 use Filament\View\PanelsRenderHook;
 use Filament\Widgets\AccountWidget;
-use Illuminate\Database\QueryException;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
@@ -54,7 +55,7 @@ class AdminPanelProvider extends PanelProvider
                 Dashboard::class,
             ])
             ->navigationItems([
-               
+
                 NavigationItem::make('Profile')
                     ->group('Account')
                     ->icon(Heroicon::OutlinedUserCircle)
@@ -75,7 +76,7 @@ class AdminPanelProvider extends PanelProvider
                     ->sort(3),
             ])
             ->userMenuItems([
-               
+
                 MenuItem::make()
                     ->label('Profile')
                     ->icon(Heroicon::OutlinedUserCircle)
@@ -104,6 +105,7 @@ class AdminPanelProvider extends PanelProvider
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
                 StartSession::class,
+                SetFilamentLocale::class,
                 AuthenticateSession::class,
                 ShareErrorsFromSession::class,
                 VerifyCsrfToken::class,
