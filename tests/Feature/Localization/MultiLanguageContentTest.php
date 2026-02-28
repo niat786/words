@@ -71,6 +71,27 @@ it('renders translated game metadata for the active locale', function () {
         ->assertSee('Wordle Francais');
 });
 
+it('falls back to admin content when translated rich editor value is visually empty', function () {
+    Game::factory()->create([
+        'game_key' => 'wordle',
+        'title' => 'Wordle English',
+        'title_translations' => [
+            'en_US' => 'Wordle English',
+            'fr_FR' => 'Wordle Francais',
+        ],
+        'content' => '<p>Admin updated content from base field</p>',
+        'content_translations' => [
+            'fr_FR' => '<p><br></p>',
+        ],
+        'is_default' => true,
+    ]);
+
+    $this->withSession(['locale' => 'fr_FR'])
+        ->get('/fr-fr/wordle')
+        ->assertSuccessful()
+        ->assertSee('Admin updated content from base field');
+});
+
 it('renders localized fixed home page labels', function () {
     $this->withSession(['locale' => 'es_ES'])
         ->get('/es-es/wordle')

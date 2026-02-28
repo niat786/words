@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Games\Schemas;
 
 use App\Models\Game;
 use App\Support\Localization\SupportedLocales;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
@@ -52,6 +53,15 @@ class GameForm
                             ->helperText('Already created games are not available here. Use Edit to update existing games.')
                             ->columnSpanFull()
                             ->visible(fn (string $operation): bool => $operation === 'create'),
+                        FileUpload::make('icon_path')
+                            ->label('Game Icon')
+                            ->image()
+                            ->imageEditor()
+                            ->disk('public')
+                            ->directory('games/icons')
+                            ->visibility('public')
+                            ->helperText('Upload a game logo/icon image. Remove it to clear the icon.')
+                            ->columnSpanFull(),
                         Grid::make(2)
                             ->schema([
                                 Toggle::make('is_active')

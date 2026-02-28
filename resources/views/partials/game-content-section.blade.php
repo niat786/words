@@ -11,7 +11,7 @@
     $translatedGameContent = $game?->translated('content');
 @endphp
 
-@if (filled($translatedGameContent))
+@if ($game !== null && (filled($translatedGameTitle) || filled($translatedGameDescription) || filled($translatedGameContent)))
     <section class="{{ 'relative '.$topSpacing }}">
         <div class="pointer-events-none absolute -top-20 right-12 h-56 w-56 rounded-full bg-emerald-500/10 blur-3xl dark:bg-emerald-400/20"></div>
         <div class="pointer-events-none absolute -bottom-24 left-4 h-52 w-52 rounded-full bg-sky-500/10 blur-3xl dark:bg-sky-400/20"></div>
@@ -32,11 +32,13 @@
                 @endif
             </header>
 
-            <div class="relative z-10 mt-7 border-t border-slate-200/80 dark:border-slate-700">
-                <div class="game-rich-content">
-                    {!! $translatedGameContent !!}
+            @if (filled($translatedGameContent))
+                <div class="relative z-10 mt-7 border-t border-slate-200/80 dark:border-slate-700">
+                    <div class="game-rich-content">
+                        {!! $translatedGameContent !!}
+                    </div>
                 </div>
-            </div>
+            @endif
         </article>
     </section>
 @endif

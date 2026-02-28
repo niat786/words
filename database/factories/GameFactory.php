@@ -22,6 +22,7 @@ class GameFactory extends Factory
 
         return [
             'game_key' => $gameKey,
+            'icon_path' => null,
             'title' => $title,
             'title_translations' => [
                 'en_US' => $title,

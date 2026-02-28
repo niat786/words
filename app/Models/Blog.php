@@ -75,24 +75,36 @@ class Blog extends Model
         if (is_array($translations)) {
             $localizedValue = $translations[$requestedLocale] ?? null;
 
-            if (is_string($localizedValue) && trim($localizedValue) !== '') {
+            if (is_string($localizedValue) && $this->isMeaningfulContent($localizedValue)) {
                 return $localizedValue;
             }
 
             $defaultValue = $translations[SupportedLocales::defaultLocale()] ?? null;
 
-            if (is_string($defaultValue) && trim($defaultValue) !== '') {
+            if (is_string($defaultValue) && $this->isMeaningfulContent($defaultValue)) {
                 return $defaultValue;
             }
         }
 
         $fallbackValue = $this->getAttribute($field);
 
-        if (is_string($fallbackValue) && trim($fallbackValue) !== '') {
+        if (is_string($fallbackValue) && $this->isMeaningfulContent($fallbackValue)) {
             return $fallbackValue;
         }
 
         return null;
+    }
+
+    protected function isMeaningfulContent(string $value): bool
+    {
+        $decoded = html_entity_decode($value, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        $textOnly = trim(preg_replace('/\x{00a0}/u', ' ', strip_tags($decoded)) ?? '');
+
+        if ($textOnly !== '') {
+            return true;
+        }
+
+        return preg_match('/<(img|svg|video|audio|iframe|object|embed|table|ul|ol|li|blockquote|pre|code)\b/i', $decoded) === 1;
     }
 
     public function user(): BelongsTo
