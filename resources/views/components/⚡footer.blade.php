@@ -24,7 +24,7 @@ new class extends Component
 
     $siteLinks = [
         ['label' => 'Home', 'url' => $siteUrl],
-        ['label' => 'Login', 'url' => route('login')],
+        ['label' => 'Login', 'url' => url('/admin/login')],
         ['label' => 'Register', 'url' => route('register')],
     ];
 

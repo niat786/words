@@ -69,7 +69,7 @@ new class extends Component
                 </button>
 
                 @guest
-                    <a href="{{ route('login') }}" class="hidden text-xs font-bold text-slate-600 transition-colors hover:text-green-500 dark:text-slate-300 md:inline-block">Login</a>
+                    <a href="{{ url('/admin/login') }}" class="hidden text-xs font-bold text-slate-600 transition-colors hover:text-green-500 dark:text-slate-300 md:inline-block">Login</a>
                     <a href="{{ route('register') }}" class="group relative overflow-hidden rounded-lg bg-slate-900 px-4 py-2 text-[10px] font-black text-white transition-all hover:-translate-y-0.5 active:translate-y-0 dark:bg-white dark:text-slate-950 sm:rounded-xl sm:px-6 sm:py-2.5 sm:text-xs">
                         <span class="relative z-10">REGISTER</span>
                         <div class="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-1000 group-hover:translate-x-full"></div>
@@ -95,7 +95,7 @@ new class extends Component
             <a href="{{ route('blog.index') }}" class="whitespace-nowrap rounded-full border border-slate-200 bg-slate-100/50 px-4 py-1.5 text-[10px] font-bold uppercase tracking-wide text-slate-600 dark:border-white/5 dark:bg-white/5 dark:text-slate-400">Blog</a>
             <a href="{{ url('/admin') }}" class="whitespace-nowrap rounded-full border border-slate-200 bg-slate-100/50 px-4 py-1.5 text-[10px] font-bold uppercase tracking-wide text-slate-600 dark:border-white/5 dark:bg-white/5 dark:text-slate-400">Admin</a>
             @guest
-                <a href="{{ route('login') }}" class="whitespace-nowrap rounded-full border border-slate-200 bg-slate-100/50 px-4 py-1.5 text-[10px] font-bold uppercase tracking-wide text-slate-600 dark:border-white/5 dark:bg-white/5 dark:text-slate-400 md:hidden">Login</a>
+                <a href="{{ url('/admin/login') }}" class="whitespace-nowrap rounded-full border border-slate-200 bg-slate-100/50 px-4 py-1.5 text-[10px] font-bold uppercase tracking-wide text-slate-600 dark:border-white/5 dark:bg-white/5 dark:text-slate-400 md:hidden">Login</a>
             @endguest
         </div>
     </div>
