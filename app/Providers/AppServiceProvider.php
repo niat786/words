@@ -3,8 +3,10 @@
 namespace App\Providers;
 
 use App\Models\Blog;
+use App\Models\Game;
 use App\Models\Setting;
 use App\Observers\BlogObserver;
+use App\Observers\GameObserver;
 use App\Support\Localization\SupportedLocales;
 use Carbon\CarbonImmutable;
 use Illuminate\Database\QueryException;
@@ -32,6 +34,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Blog::observe(BlogObserver::class);
+        Game::observe(GameObserver::class);
 
         $this->configureDefaults();
         $this->shareSiteSettingsWithViews();

@@ -10,3 +10,6 @@ Artisan::command('inspire', function () {
 
 Schedule::command('blogs:clean-assets --days=2')
     ->dailyAt('03:30');
+
+Schedule::command('games:clean-icons --days=30')
+    ->monthlyOn(1, '03:45');

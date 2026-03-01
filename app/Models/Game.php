@@ -6,6 +6,7 @@ use App\Support\Localization\SupportedLocales;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Str;
 
 class Game extends Model
 {
@@ -95,5 +96,40 @@ class Game extends Model
     public function analytics(): HasMany
     {
         return $this->hasMany(GameAnalytics::class);
+    }
+
+    public static function normalizeIconStoragePath(?string $path): ?string
+    {
+        $normalizedPath = trim((string) $path);
+
+        if ($normalizedPath === '') {
+            return null;
+        }
+
+        if (Str::startsWith($normalizedPath, ['http://', 'https://'])) {
+            $parsedPath = parse_url($normalizedPath, PHP_URL_PATH);
+
+            if (! is_string($parsedPath)) {
+                return null;
+            }
+
+            $normalizedPath = $parsedPath;
+        }
+
+        $normalizedPath = preg_replace('/[#?].*$/', '', $normalizedPath) ?? $normalizedPath;
+        $normalizedPath = str_replace('\\', '/', $normalizedPath);
+        $normalizedPath = ltrim($normalizedPath, '/');
+
+        if (Str::startsWith($normalizedPath, 'storage/')) {
+            $normalizedPath = Str::after($normalizedPath, 'storage/');
+        }
+
+        if (! Str::contains($normalizedPath, 'games/icons/')) {
+            return null;
+        }
+
+        $normalizedPath = 'games/icons/'.Str::after($normalizedPath, 'games/icons/');
+
+        return preg_replace('#/+#', '/', $normalizedPath) ?? $normalizedPath;
     }
 }

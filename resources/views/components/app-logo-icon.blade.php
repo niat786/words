@@ -1,5 +1,9 @@
-@if (! empty($globalSiteIconUrl))
-    <img src="{{ $globalSiteIconUrl }}" alt="Site icon" {{ $attributes->merge(['class' => 'object-cover']) }}>
+@php
+    $resolvedLogoIcon = $globalSiteLogoUrl ?? $globalSiteIconUrl ?? null;
+@endphp
+
+@if (! empty($resolvedLogoIcon))
+    <img src="{{ $resolvedLogoIcon }}" alt="Site icon" {{ $attributes->merge(['class' => 'object-cover']) }}>
 @else
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 42" {{ $attributes }}>
         <path
