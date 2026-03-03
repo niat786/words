@@ -89,7 +89,7 @@ new class extends Component {
             <i class="fa-solid fa-gamepad"></i>
             More Puzzles
         </div>
-        <h2 class="text-4xl md:text-5xl font-black tracking-tight text-slate-900 dark:text-white mb-4">
+        <h2 class="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">
             Play Other Games
         </h2>
         <p class="text-slate-600 dark:text-slate-400 text-lg max-w-2xl mx-auto">
@@ -122,7 +122,7 @@ new class extends Component {
                         <span
                             class="px-3 py-1 bg-green-500/10 text-green-600 dark:text-green-400 text-xs font-bold rounded-full">Play</span>
                     </div>
-                    <h3 class="text-2xl font-black text-slate-900 dark:text-white mb-2">{{ $game['name'] }}</h3>
+                    <h3 class="text-2xl font-semibold text-slate-900 dark:text-white mb-2">{{ $game['name'] }}</h3>
                     <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-4">
                         {{ $game['description'] !== '' ? $game['description'] : 'Play this game now and challenge your vocabulary.' }}
                     </p>

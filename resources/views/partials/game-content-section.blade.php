@@ -18,10 +18,10 @@
 
         <article class="relative overflow-hidden rounded-[2rem] border border-slate-200/70 bg-gradient-to-b from-white via-white to-slate-50 p-6 shadow-[0_30px_80px_-45px_rgba(15,23,42,0.45)] dark:border-white/10 dark:bg-gradient-to-b dark:from-[#11151c] dark:via-[#0f131a] dark:to-[#0b0f16] sm:p-8">
             <header class="relative z-10">
-                <div class="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.22em] text-emerald-700 dark:border-emerald-400/30 dark:bg-emerald-500/15 dark:text-emerald-300">
+                <div class="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-[10px] font-semibold uppercase  text-emerald-700 dark:border-emerald-400/30 dark:bg-emerald-500/15 dark:text-emerald-300">
                     {{ $badge }}
                 </div>
-                <h2 class="mt-4 text-3xl font-black tracking-tight text-slate-900 dark:text-white sm:text-4xl">
+                <h2 class="mt-4 text-3xl font-bold text-slate-900 dark:text-white sm:text-4xl">
                     {{ $translatedGameTitle ?? $game?->title ?? $fallbackTitle }}
                 </h2>
 

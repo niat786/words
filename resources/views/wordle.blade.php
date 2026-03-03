@@ -5,20 +5,23 @@
     @include('partials.head')
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;800&family=Inter:wght@400;500;600&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
         :root {
             --font-ui: 'Inter', sans-serif;
-            --font-heading: 'Plus Jakarta Sans', sans-serif;
+            --font-heading: "Montserrat", sans-serif;
+     
+  
         }
 
         body {
-            font-family: var(--font-ui);
+            font-family: "Montserrat", sans-serif;
             -webkit-tap-highlight-color: transparent;
+            font-optical-sizing: auto;
+            font-style: normal;
         }
 
         h1,
@@ -43,7 +46,7 @@
         .tile {
             width: clamp(50px, 15vw, 64px);
             height: clamp(50px, 15vw, 64px);
-            font-size: clamp(1.5rem, 5vw, 2rem);
+            font-size: clamp(1.3rem, 5vw, 2rem);
         }
 
         /* Smooth scroll for mobile sections */
@@ -153,7 +156,7 @@
                     <div class="flex justify-center gap-1 md:gap-2">
                         <button onclick="handleInput('BACKSPACE')" class="px-5 h-12 md:h-16 bg-slate-300 dark:bg-white/20 rounded text-lg"><i class="fa-solid fa-backspace"></i></button>
                         <script> ['Z', 'X', 'C', 'V', 'B', 'N', 'M'].forEach(l => document.write(`<button onclick="handleInput('${l}')" id="key-${l}" class="flex-1 h-12 md:h-16 bg-slate-100 dark:bg-white/10 rounded font-semibold text-base sm:text-lg hover:bg-slate-200 dark:hover:bg-white/20 active:scale-90 transition-all shadow-sm">${l}</button>`)); </script>
-                        <button onclick="handleInput('ENTER')" class="px-4 h-12 md:h-16 bg-slate-300 dark:bg-white/20 rounded font-bold text-xs sm:text-sm uppercase tracking-tighter">{{ __('home.enter') }}</button>
+                        <button onclick="handleInput('ENTER')" class="px-4 h-12 md:h-16 bg-slate-300 dark:bg-white/20 rounded font-bold text-xs sm:text-sm uppercase tracking-wide">{{ __('home.enter') }}</button>
                     </div>
                 </div>
         
@@ -908,9 +911,8 @@
 
             <section class="mt-12 rounded-3xl border border-slate-200/70 bg-white p-6 shadow-lg shadow-slate-200/40 dark:border-white/10 dark:bg-white/5 dark:shadow-none md:p-8" aria-labelledby="word-lengths-heading">
                 <div class="text-center">
-                    <h2 id="word-lengths-heading" class="text-2xl font-black tracking-tight text-slate-900 dark:text-white md:text-3xl">
-                        Play Wordle with Various Number of Letters
-                    </h2>
+                    <h2 id="word-lengths-heading" class="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white">
+                        Play Wordle (Any Length)                    </h2>
                     <p class="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-400 md:text-base">
                         Choose a word puzzle with the length of the hidden word from 4 to 11 letters.
                     </p>
