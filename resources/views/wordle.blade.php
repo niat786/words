@@ -134,23 +134,6 @@
              {{-- @livewire('ads-left-side') --}}
         
             <section class="lg:col-span-6 flex flex-col items-center">
-                <div class="w-full md:max-w-lg mb-3">
-                    <div class="mx-auto w-full max-w-xs">
-                        <label for="word-length-select" class="hidden md:block text-[11px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-2">{{ __('home.word_length') }}</label>
-                        <select
-                            id="word-length-select"
-                            onchange="changeWordLength(this.value)"
-                            class="w-full rounded-xl border border-slate-200 bg-white px-2 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition focus:border-green-500 focus:outline-none focus:ring-2 focus:ring-green-500/30 dark:border-white/10 dark:bg-white/5 dark:text-slate-200"
-                        >
-                            @foreach ($wordLengthOptions as $wordLengthOption)
-                                <option value="{{ $wordLengthOption }}" @selected($wordLengthOption === 5)>
-                                    {{ __('home.letter_words', ['count' => $wordLengthOption]) }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-
                 <div id="game-board" class="grid grid-rows-5 gap-2 mb-3">
                 </div>
         
@@ -437,18 +420,32 @@
 
             renderBoard();
             resetKeyboardState();
-
-            const selector = document.getElementById('word-length-select');
-
-            if (selector) {
-                selector.value = String(wordLength);
-            }
+            updateWordLengthOptionState(wordLength);
 
             trackGameEvent('wordle', 'game_started', {
                 word_length: wordLength,
                 metadata: {
                     mode: 'classic',
                 },
+            });
+        }
+
+        function updateWordLengthOptionState(wordLength) {
+            document.querySelectorAll('[data-word-length-option]').forEach((option) => {
+                const isActive = Number.parseInt(option.dataset.wordLengthOption, 10) === wordLength;
+
+                option.classList.toggle('bg-green-500', isActive);
+                option.classList.toggle('border-green-500', isActive);
+                option.classList.toggle('text-white', isActive);
+                option.classList.toggle('dark:bg-green-500', isActive);
+                option.classList.toggle('dark:border-green-400', isActive);
+                option.classList.toggle('dark:text-white', isActive);
+                option.classList.toggle('bg-slate-50', ! isActive);
+                option.classList.toggle('border-slate-200', ! isActive);
+                option.classList.toggle('text-slate-700', ! isActive);
+                option.classList.toggle('dark:bg-white/5', ! isActive);
+                option.classList.toggle('dark:border-white/10', ! isActive);
+                option.classList.toggle('dark:text-slate-200', ! isActive);
             });
         }
 
@@ -902,6 +899,30 @@
 
             <!-- Play Other Games Section -->
           @livewire('play-more-games')
+
+            <section class="mt-12 rounded-3xl border border-slate-200/70 bg-white p-6 shadow-lg shadow-slate-200/40 dark:border-white/10 dark:bg-white/5 dark:shadow-none md:p-8" aria-labelledby="word-lengths-heading">
+                <div class="text-center">
+                    <h2 id="word-lengths-heading" class="text-2xl font-black tracking-tight text-slate-900 dark:text-white md:text-3xl">
+                        Play Wordle with Various Number of Letters
+                    </h2>
+                    <p class="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-400 md:text-base">
+                        Choose a word puzzle with the length of the hidden word from 4 to 11 letters.
+                    </p>
+                </div>
+
+                <div class="mt-6 pt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+                    @foreach ($wordLengthOptions as $wordLengthOption)
+                        <button
+                            type="button"
+                            onclick="changeWordLength({{ $wordLengthOption }})"
+                            data-word-length-option="{{ $wordLengthOption }}"
+                            class="word-length-option rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-700 transition hover:border-green-500 hover:bg-green-50 hover:text-green-700 focus:outline-none focus:ring-2 focus:ring-green-500/30 dark:border-white/10 dark:bg-white/5 dark:text-slate-200 dark:hover:border-green-500/70 dark:hover:bg-green-500/10"
+                        >
+                            {{ __('home.letter_words', ['count' => $wordLengthOption]) }}
+                        </button>
+                    @endforeach
+                </div>
+            </section>
 
             {{-- <section class="mt-16 grid gap-6 md:grid-cols-2">
                 <article class="rounded-2xl border border-slate-200/60 bg-white p-6 dark:border-white/5 dark:bg-white/5">
