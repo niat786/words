@@ -7,5 +7,7 @@ test('home page loads the wordle game by default', function (): void {
         ->assertOk()
         ->assertDontSee('id="word-length-select"', false)
         ->assertSee('Play Wordle with Various Number of Letters')
-        ->assertSee('id="game-board"', false);
+        ->assertSee('id="game-board"', false)
+        ->assertSee("const savedTheme = localStorage.getItem('wordly-theme');", false)
+        ->assertSee("applyTheme('light');", false);
 });

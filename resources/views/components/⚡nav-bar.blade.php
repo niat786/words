@@ -15,7 +15,7 @@ new class extends Component
     $currentLocale = $globalCurrentLocale ?? app()->getLocale();
 @endphp
 
- <nav class="sticky top-0 z-50 w-full border-b border-white/20 bg-white/70 dark:bg-slate-950/80 backdrop-blur-xl transition-all duration-300">
+ <nav class="sticky top-0 z-50 w-full border-b border-gray-100 dark:border-white/20 bg-white/70 dark:bg-slate-950/80 backdrop-blur-xl transition-all duration-300">
     <div class="mx-auto max-w-7xl px-4 sm:px-6">
         <div class="flex h-16 items-center justify-between sm:h-20">
             

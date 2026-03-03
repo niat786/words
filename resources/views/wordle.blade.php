@@ -93,24 +93,30 @@
     </style>
     
     <script>
-        // Theme initialization - Load saved preference or use system preference
-        (function() {
+        (() => {
+            const applyTheme = (theme) => {
+                if (theme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            };
+
             const savedTheme = localStorage.getItem('wordly-theme');
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            
-            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-                document.documentElement.classList.add('dark');
+            const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+            if (savedTheme === 'dark' || (! savedTheme && mediaQuery.matches)) {
+                applyTheme('dark');
+            } else {
+                applyTheme('light');
             }
 
-            // Listen for system theme changes
-            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-                if (!localStorage.getItem('wordly-theme')) {
-                    if (e.matches) {
-                        document.documentElement.classList.add('dark');
-                    } else {
-                        document.documentElement.classList.remove('dark');
-                    }
+            mediaQuery.addEventListener('change', (event) => {
+                if (localStorage.getItem('wordly-theme')) {
+                    return;
                 }
+
+                applyTheme(event.matches ? 'dark' : 'light');
             });
         })();
     </script>
