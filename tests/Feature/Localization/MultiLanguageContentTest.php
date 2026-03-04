@@ -110,6 +110,14 @@ it('renders fixed home labels for english uk locale', function () {
         ->assertSee('Enter');
 });
 
+it('renders the language selection section with all language labels', function () {
+    $this->get('/wordle')
+        ->assertSuccessful()
+        ->assertSee('Play Wordle in Different Languages')
+        ->assertSee('English (US)')
+        ->assertSee('Filipino');
+});
+
 it('serves language-prefixed routes for seo crawlability', function () {
     $this->get('/es-es/wordle')
         ->assertSuccessful()

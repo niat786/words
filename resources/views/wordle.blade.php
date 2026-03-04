@@ -128,6 +128,8 @@
 <body class="bg-white text-slate-900 dark:bg-[#08090a] dark:text-slate-100 transition-colors duration-300">
   @php
       $wordLengthOptions = [4, 5, 6, 7, 8, 9, 10, 11];
+      $availableLocales = $globalAvailableLocales ?? [];
+      $currentLocale = $globalCurrentLocale ?? app()->getLocale();
       $homeI18n = [
           'wordLengthSelected' => __('home.word_length_selected', ['count' => ':count']),
           'notInWordList' => __('home.not_in_word_list'),
@@ -928,6 +930,33 @@
                         >
                             {{ __('home.letter_words', ['count' => $wordLengthOption]) }}
                         </button>
+                    @endforeach
+                </div>
+            </section>
+
+            <section class="mt-10 rounded-3xl border border-slate-200/70 bg-white p-6 shadow-lg shadow-slate-200/40 dark:border-white/10 dark:bg-white/5 dark:shadow-none md:p-8" aria-labelledby="country-language-heading">
+                <div class="text-center">
+                    <h2 id="country-language-heading" class="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white">
+                        Play Wordle in Different Languages
+                    </h2>
+                    <p class="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-400 md:text-base">
+                        Guess the hidden words in different languages! It will be helpful for learning new words and improving foreign language skills.
+                    </p>
+                </div>
+
+                <div class="mt-6 grid grid-cols-1 gap-5 pt-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                    @foreach ($availableLocales as $localeCode => $localeLabel)
+                        <a
+                            href="{{ route('locale.switch', ['locale' => $localeCode]) }}"
+                            class="rounded-lg border px-4 py-3 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-green-500/30 {{ $currentLocale === $localeCode ? 'border-green-500 bg-green-50 text-green-700 dark:border-green-500/70 dark:bg-green-500/10 dark:text-green-300' : 'border-slate-200 bg-slate-50 text-slate-700 hover:border-green-500 hover:bg-green-50 hover:text-green-700 dark:border-white/10 dark:bg-white/5 dark:text-slate-200 dark:hover:border-green-500/70 dark:hover:bg-green-500/10' }}"
+                        >
+                            <span class="flex items-center gap-3">
+                                <span class="inline-flex h-7 w-7 items-center justify-center rounded-md bg-slate-200 text-xs text-slate-600 dark:bg-white/15 dark:text-slate-200">
+                                    <i class="fa-solid fa-flag"></i>
+                                </span>
+                                <span>{{ $localeLabel }}</span>
+                            </span>
+                        </a>
                     @endforeach
                 </div>
             </section>
