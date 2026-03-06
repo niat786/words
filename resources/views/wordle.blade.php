@@ -145,7 +145,7 @@
              {{-- @livewire('ads-left-side') --}}
         
             <section class="lg:col-span-6 flex flex-col items-center">
-                <div id="game-board" class="grid grid-rows-5 gap-2 mb-3">
+                <div id="game-board" class="grid grid-rows-5 gap-2 mb-3 min-h-[340px]">
                 </div>
         
                 <div class="w-full md:max-w-lg space-y-2 select-none mb-12">
