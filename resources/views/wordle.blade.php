@@ -143,7 +143,6 @@
     <main class="max-w-7xl mx-auto px-3 py-3 md:py-8">
         <div class="grid grid-cols-1">
              {{-- @livewire('ads-left-side') --}}
-        
             <section class="lg:col-span-6 flex flex-col items-center">
                 <div id="game-board" class="grid grid-rows-5 gap-2 mb-3 min-h-[340px]">
                 </div>
