@@ -5,3 +5,9 @@ php artisan blogs:clean-assets --days=2
 
 
 rm -rf /Users/niatmurad/Herd/wordle/storage/app/private/livewire-tmp/*
+
+
+php artisan optimize:clear
+php artisan config:cache
+php artisan octane:stop
+php artisan octane:start --host=0.0.0.0 --port=8000

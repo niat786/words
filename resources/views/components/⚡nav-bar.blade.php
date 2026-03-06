@@ -20,17 +20,17 @@ new class extends Component
         <div class="flex h-16 items-center justify-between sm:h-20">
             
             <a href="{{ route('home') }}" class="group relative flex items-center gap-2 sm:gap-3">
-                <div class="relative flex h-8 w-8 items-center justify-center overflow-hidden rounded-xl shadow-lg transition-all duration-500 group-hover:rotate-6 group-hover:scale-110 sm:h-10 sm:w-10 sm:rounded-2xl {{ empty($globalSiteLogoUrl) ? 'bg-gradient-to-br from-green-400 to-green-600 text-white shadow-green-500/30' : 'bg-white dark:bg-white/10 shadow-slate-200/70 dark:shadow-slate-950/40' }}">
+                <div class="relative flex h-10 w-10 md:h-12 md:w-12 items-center justify-center overflow-hidden rounded-xl shadow-lg transition-all duration-500 group-hover:rotate-6 group-hover:scale-110 {{ empty($globalSiteLogoUrl) ? 'bg-linear-to-br from-green-400 to-green-600 text-white shadow-green-500/30' : 'bg-white dark:bg-white/10 shadow-slate-200/70 dark:shadow-slate-950/40' }}">
                     @if (! empty($globalSiteLogoUrl))
                         <img src="{{ $globalSiteLogoUrl }}" alt="{{ $siteName }} logo" class="h-full w-full object-cover">
                     @else
                         <i class="fa-solid fa-w text-base font-black sm:text-xl"></i>
                     @endif
-                    <div class="absolute inset-0 -translate-x-full bg-gradient-to-tr from-white/0 via-white/40 to-white/0 transition-transform duration-700 group-hover:translate-x-full"></div>
+                    <div class="absolute inset-0 -translate-x-full bg-linear-to-tr from-white/0 via-white/40 to-white/0 transition-transform duration-700 group-hover:translate-x-full"></div>
                 </div>
                 <div class="flex flex-col">
-                    <h1 class="max-w-[9rem] truncate text-lg font-black leading-none tracking-tighter text-slate-900 dark:text-white sm:max-w-[12rem] sm:text-2xl">{{ $siteName }}</h1>
-                    <span class="max-w-[9rem] truncate text-[8px] font-black uppercase tracking-[0.2em] text-green-500 sm:max-w-[12rem] sm:text-[10px] sm:tracking-[0.3em]">{{ $siteTagline }}</span>
+                    <h1 class="max-w-36 truncate text-lg font-black leading-none tracking-wide text-slate-900 dark:text-white sm:max-w-48 sm:text-2xl">{{ $siteName }}</h1>
+                    <span class="max-w-36 truncate text-[8px] font-black uppercase tracking-[0.2em] text-green-500 sm:max-w-[12rem] sm:text-[10px] sm:tracking-[0.3em]">{{ $siteTagline }}</span>
                 </div>
             </a>
 
@@ -72,12 +72,12 @@ new class extends Component
                     <a href="{{ url('/admin/login') }}" class="hidden text-xs font-bold text-slate-600 transition-colors hover:text-green-500 dark:text-slate-300 md:inline-block">Login</a>
                     <a href="{{ route('register') }}" class="group relative overflow-hidden rounded-lg bg-slate-900 px-4 py-2 text-[10px] font-black text-white transition-all hover:-translate-y-0.5 active:translate-y-0 dark:bg-white dark:text-slate-950 sm:rounded-xl sm:px-6 sm:py-2.5 sm:text-xs">
                         <span class="relative z-10">REGISTER</span>
-                        <div class="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-1000 group-hover:translate-x-full"></div>
+                        <div class="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/20 to-transparent transition-transform duration-1000 group-hover:translate-x-full"></div>
                     </a>
                 @else
-                    <a href="{{ url('admin') }}" class="group relative overflow-hidden rounded-lg bg-green-500 px-4 py-2 text-[10px] font-black text-white shadow-lg shadow-green-500/20 transition-all hover:bg-green-600 sm:rounded-xl sm:px-6 sm:py-2.5 sm:text-xs">
+                    <a href="{{ url('admin') }}" class="group relative overflow-hidden rounded-lg bg-green-600 px-4 py-2 text-[10px] font-black text-white shadow-lg shadow-green-500/20 transition-all hover:bg-green-600 sm:rounded-xl sm:px-6 sm:py-2.5 sm:text-xs">
                         DASHBOARD
-                        <div class="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 group-hover:translate-x-full"></div>
+                        <div class="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 group-hover:translate-x-full"></div>
                     </a>
                 @endguest
             </div>
